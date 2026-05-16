@@ -26,7 +26,7 @@ body{background:#f3f6fb}.admin-wrap{display:grid;grid-template-columns:300px 1fr
 <aside class="panel side">
   <h2 class="section-title">分類</h2><div id="sectionList"></div>
   <div class="hr"></div>
-  <div class="actions"><button class="admin-btn gray" onclick="addSection()">新增分類</button><button class="admin-btn" onclick="downloadJSON()">下載 data.json</button></div>
+  <div class="actions"><button class="admin-btn gray" onclick="addSection()">新增分類</button><button class="admin-btn" onclick="downloadJSON()">下載 data.json</button><button class="admin-btn gray" onclick="clearImageEditorCache()">重讀圖片</button></div>
 </aside>
 <section class="panel">
   <div id="editor"></div>
@@ -57,7 +57,7 @@ function renderAdmin(){
   (sec.categories||[]).forEach((cat,ci)=>{
     html+=`<div class="card-admin"><div class="row"><div class="field"><label>類別名稱</label><input value="${esc(cat.title)}" onchange="sec().categories[${ci}].title=this.value;saveLocal()"></div><div class="field"><label>操作</label><div class="actions"><button class="admin-btn gray" onclick="addCard(${ci})">新增品牌</button><button class="admin-btn red" onclick="deleteCategory(${ci})">刪除類別</button></div></div></div>`;
     (cat.cards||[]).forEach((c,ki)=>{
-      const key=`${ci}-${ki}`;
+      const key=`${sec.id||active}-${cat.id||ci}-${c.id||ki}`;
       if(!cropState[key]) cropState[key]={src:c.image||'',scale:1,x:0,y:0};
       html+=`<div class="card-admin">
         <div class="row"><div class="field"><label>品牌名稱</label><input value="${esc(c.name)}" onchange="card(${ci},${ki}).name=this.value;saveLocal()"></div><div class="field"><label>標籤/備註</label><input value="${esc((c.tags||[]).join('、'))}" onchange="card(${ci},${ki}).tags=this.value.split(/[、,]/).map(x=>x.trim()).filter(Boolean);saveLocal()"></div></div>
@@ -115,7 +115,7 @@ function deleteCard(ci,ki){if(confirm('確定刪除此品牌？')){sec().categor
 function moveCard(ci,ki,dir){let arr=sec().categories[ci].cards, ni=ki+dir;if(ni<0||ni>=arr.length)return;[arr[ki],arr[ni]]=[arr[ni],arr[ki]];saveLocal();renderAdmin()}
 function loadCropImage(input,ci,ki){
   const f=input.files[0]; if(!f)return;
-  const key=`${ci}-${ki}`;
+  const key=`${sec.id||active}-${cat.id||ci}-${c.id||ki}`;
   const r=new FileReader();
   r.onload=e=>{cropState[key]={src:e.target.result,scale:1,x:0,y:0}; renderAdmin();};
   r.readAsDataURL(f);
@@ -170,6 +170,13 @@ function applyCrop(ci,ki,key){
   image.src=st.src;
 }
 function removeImage(ci,ki,key){card(ci,ki).image=''; cropState[key]={src:'',scale:1,x:0,y:0}; saveLocal(); renderAdmin();}
+
+function clearImageEditorCache(){
+  Object.keys(cropState).forEach(k=>delete cropState[k]);
+  alert('已清除後台圖片編輯暫存，會重新依照 data.json 載入圖片。');
+  renderAdmin();
+}
+
 function downloadJSON(){const blob=new Blob([JSON.stringify(DATA,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='data.json';a.click()}
 async function commitToGitHub(){
   const owner=ghOwner.value.trim(), repo=ghRepo.value.trim(), branch=ghBranch.value.trim()||'main', path=ghPath.value.trim()||'data.json', token=ghToken.value.trim();
