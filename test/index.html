@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-TW"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SLEEP 2026 展商前台</title><style>
+:root{--bg:#f5f7fb;--card:#fff;--ink:#172033;--muted:#647084;--line:#e6ebf3;--blue:#2563eb;--shadow:0 14px 34px rgba(23,32,51,.08)}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#f8fbff 0%,var(--bg) 42%,#eef3f9 100%);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans TC','Microsoft JhengHei',sans-serif}
+.container{max-width:1180px;margin:auto;padding:0 18px}header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);box-shadow:0 8px 26px rgba(15,23,42,.05);padding:22px 0 10px}
+.hd{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}.hd h1{font-size:30px;line-height:1.25;margin:0 0 4px;letter-spacing:-.03em}.sub{color:var(--muted);font-size:14px;line-height:1.65}
+.stats{display:flex;gap:10px;background:#f8fafc;border:1px solid var(--line);border-radius:18px;padding:10px 14px}.stat .n{font-weight:800;font-size:22px;color:var(--blue)}.stat .l{font-size:12px;color:var(--muted)}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-top:16px}.tab{border:1px solid transparent;border-radius:999px;padding:11px 18px;font-size:15px;background:#f8fafc;color:#526078;white-space:nowrap;cursor:pointer}.tab.active{background:var(--blue);color:#fff;border-color:var(--blue);box-shadow:0 8px 18px rgba(37,99,235,.22)}
+main{padding:26px 0 70px}.banner{border-radius:22px;padding:20px 22px;background:#eff4ff;box-shadow:var(--shadow);margin-bottom:28px}.banner h2{font-size:23px;margin:0 0 8px}.banner p{font-size:16px;line-height:1.85;color:#4b5870;margin:0}
+.cat-hd{display:flex;align-items:center;gap:10px;margin:30px 0 16px}.cat-title{font-size:14px;font-weight:800;letter-spacing:.08em;color:#536276}.cat-line{height:1px;background:linear-gradient(90deg,#d9e3f4,transparent);flex:1}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:var(--card);border:1px solid rgba(226,232,240,.95);border-radius:24px;box-shadow:0 10px 28px rgba(15,23,42,.06);overflow:hidden;display:flex;flex-direction:column}.card-img{width:100%;height:220px;background:#eef2f7}.card-img img{width:100%;height:100%;object-fit:cover;display:block}.card-body{padding:20px 22px 8px}.co-name{font-size:22px;font-weight:800;line-height:1.35}.badge{display:inline-block;font-size:12px;padding:4px 9px;margin:8px 0 10px;border-radius:999px;background:#f8fafc;border:1px solid var(--line);color:#647084}.prod{font-size:14px;line-height:1.65;color:#66758a;margin-bottom:12px}.desc{font-size:16px;line-height:1.9;color:#3f4b5f;margin-bottom:14px}.highlight{font-size:15.5px;line-height:1.85;padding:12px 14px;border-left:4px solid var(--blue);border-radius:0 12px 12px 0;background:#f8fafc;margin-bottom:14px}.tags{display:flex;gap:8px;flex-wrap:wrap;padding:0 22px 16px}.tag{font-size:13px;padding:6px 11px;border-radius:999px;background:#eff4ff;color:#1d4ed8;border:1px solid #bfdbfe}.foot{margin-top:auto;padding:14px 22px 20px;border-top:1px solid var(--line);text-align:right}.btn{display:inline-block;background:var(--blue);color:#fff;text-decoration:none;border-radius:999px;padding:10px 15px;font-size:14px}
+.admin-link{position:fixed;right:14px;bottom:14px;background:#111827;color:#fff;text-decoration:none;border-radius:999px;padding:10px 14px;font-size:13px;box-shadow:var(--shadow)}
+.empty-img{display:flex;align-items:center;justify-content:center;height:100%;color:#94a3b8;font-size:14px}
+.trends{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.trend{background:#fff;border:1px solid var(--line);border-radius:24px;padding:24px;box-shadow:var(--shadow)}.trend-num{font-size:34px;font-weight:800;color:#cbd5e1}.trend h3{font-size:20px;margin:8px 0}.trend p{font-size:16px;line-height:1.85;color:#4b5870}
+@media(max-width:900px){.cards,.trends{grid-template-columns:1fr}.hd{display:block}.stats{margin-top:12px;justify-content:space-between}.hd h1{font-size:28px}.card-img{height:240px}.container{padding:0 16px}.banner h2{font-size:21px}.banner p,.desc,.trend p{font-size:16px}}
+</style></head>
+<body><header><div class="container"><div class="hd"><div><h1 id="siteTitle"></h1><div class="sub" id="siteSub"></div></div><div class="stats" id="stats"></div></div><div class="tabs" id="tabs"></div></div></header>
+<main><div class="container" id="app"></div></main><a class="admin-link" href="admin.html">後台管理</a>
+<script>
+let DATA=null, active=0;
+async function loadData(){
+  try{ const r=await fetch('data.json?ts='+Date.now()); DATA=await r.json(); }
+  catch(e){ document.getElementById('app').innerHTML='<div class="banner"><h2>讀取失敗</h2><p>請確認 data.json 與 index.html 放在同一層。</p></div>'; return; }
+  render();
+}
+function esc(s=''){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function render(){
+  siteTitle.textContent=DATA.siteTitle||''; siteSub.textContent=DATA.siteSubTitle||'';
+  stats.innerHTML=(DATA.stats||[]).map(s=>`<div class="stat"><div class="n">${esc(s.value)}</div><div class="l">${esc(s.label)}</div></div>`).join('');
+  tabs.innerHTML=(DATA.sections||[]).map((s,i)=>`<button class="tab ${i===active?'active':''}" onclick="active=${i};render()">${esc(s.title)}</button>`).join('');
+  const sec=(DATA.sections||[])[active]; if(!sec) return;
+  let html=`<section><div class="banner"><h2>${esc(sec.bannerTitle||sec.title)}</h2><p>${esc(sec.bannerDesc||'')}</p></div>`;
+  if(sec.trends && sec.trends.length){
+    html += `<div class="trends">`+sec.trends.map(t=>`<div class="trend"><div class="trend-num">${esc(t.number)}</div><h3>${esc(t.title)}</h3><p>${esc(t.description)}</p><div class="prod">${esc(t.companies)}</div></div>`).join('')+`</div>`;
+  }
+  (sec.categories||[]).forEach(cat=>{
+    html+=`<div class="cat-hd"><span class="cat-title">${esc(cat.title)}</span><div class="cat-line"></div></div><div class="cards">`;
+    (cat.cards||[]).forEach(c=>{
+      html+=`<article class="card">
+        <div class="card-img">${c.image?`<img src="${c.image}" alt="${esc(c.name)}">`:`<div class="empty-img">無圖片</div>`}</div>
+        <div class="card-body"><div class="co-name">${esc(c.name)}</div>${c.badge?`<span class="badge">${esc(c.badge)}</span>`:''}<div class="prod">${esc(c.product)}</div><div class="desc">${esc(c.description)}</div>${c.highlight?`<div class="highlight">${c.highlight}</div>`:''}</div>
+        <div class="tags">${(c.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
+        ${c.website?`<div class="foot"><a class="btn" href="${c.website}" target="_blank">官網</a></div>`:''}
+      </article>`;
+    });
+    html+='</div>';
+  });
+  app.innerHTML=html+'</section>';
+}
+loadData();
+</script></body></html>
