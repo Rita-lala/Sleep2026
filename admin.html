@@ -89,7 +89,7 @@ function renderAdmin(){
           </div>
         </div>
 
-        <div class="actions"><button class="admin-btn gray" onclick="moveCard(${ci},${ki},-1)">上移</button><button class="admin-btn gray" onclick="moveCard(${ci},${ki},1)">下移</button><button class="admin-btn red" onclick="deleteCard(${ci},${ki})">刪除品牌</button></div>
+        <div class="actions" style="align-items:center;flex-wrap:wrap;gap:8px"><button class="admin-btn gray" onclick="moveCard(${ci},${ki},-1)">上移</button><button class="admin-btn gray" onclick="moveCard(${ci},${ki},1)">下移</button><label style="font-size:13px;font-weight:700;color:#475569;white-space:nowrap;margin:0">移至：</label><select onchange="moveCardToCategory(${ci},${ki},this.value);this.value=''" style="border:1px solid #dbe3ef;border-radius:10px;padding:8px 10px;font-size:13px;font-family:inherit;color:#334155;background:#f8fafc;cursor:pointer"><option value="">— 選擇子項目 —</option>${buildCatOptions(ci)}</select><button class="admin-btn red" onclick="deleteCard(${ci},${ki})">刪除品牌</button></div>
       </div>`;
     });
     html+='</div>';
@@ -113,9 +113,27 @@ function deleteCategory(ci){if(confirm('確定刪除此類別？')){sec().catego
 function addCard(ci){sec().categories[ci].cards.push({id:uid(),name:'新增品牌',badge:'',product:'',description:'',highlight:'',tags:[],image:'',website:'',accent:'blue'});saveLocal();renderAdmin()}
 function deleteCard(ci,ki){if(confirm('確定刪除此品牌？')){sec().categories[ci].cards.splice(ki,1);saveLocal();renderAdmin()}}
 function moveCard(ci,ki,dir){let arr=sec().categories[ci].cards, ni=ki+dir;if(ni<0||ni>=arr.length)return;[arr[ki],arr[ni]]=[arr[ni],arr[ki]];saveLocal();renderAdmin()}
+function buildCatOptions(currentCi){
+  return (sec().categories||[]).map((ct,idx)=>{
+    if(idx===currentCi) return '';
+    const t=ct.title.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    return '<option value="'+idx+'">'+t+'</option>';
+  }).join('');
+}
+function moveCardToCategory(fromCi,ki,toCiStr){
+  const toCi=parseInt(toCiStr);
+  if(isNaN(toCi)||toCi===fromCi||toCi<0)return;
+  const cats=sec().categories;
+  if(!cats[toCi])return;
+  const c=cats[fromCi].cards.splice(ki,1)[0];
+  cats[toCi].cards.push(c);
+  saveLocal();
+  renderAdmin();
+}
 function loadCropImage(input,ci,ki){
   const f=input.files[0]; if(!f)return;
-  const key=`${sec.id||active}-${cat.id||ci}-${c.id||ki}`;
+  const s=sec(), cat=s.categories[ci], c=cat.cards[ki];
+  const key=`${s.id||active}-${cat.id||ci}-${c.id||ki}`;
   const r=new FileReader();
   r.onload=e=>{cropState[key]={src:e.target.result,scale:1,x:0,y:0}; renderAdmin();};
   r.readAsDataURL(f);
