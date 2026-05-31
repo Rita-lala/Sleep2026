@@ -18,13 +18,102 @@ main{padding:26px 0 70px}.banner{border-radius:22px;padding:20px 22px;background
 <body><header><div class="container"><div class="hd"><div><h1 id="siteTitle"></h1><div class="sub" id="siteSub"></div></div><div class="stats" id="stats"></div></div><div class="tabs" id="tabs"></div></div></header>
 <main><div class="container" id="app"></div></main><a class="admin-link" href="admin.html">後台管理</a>
 <script>
-let DATA=null, active=0;
+let DATA=null, IMAGES=[], active=0;
+
+const GITHUB_OWNER = 'rita-lala';
+const GITHUB_REPO = 'Sleep2026';
+const IMAGES_DIR = 'images';
+
+function esc(s=''){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function norm(s=''){return String(s).toLowerCase().replace(/[\s\-_()（）[\]【】/\\|·.,:：;；]+/g,'').replace(/[^\w\u4e00-\u9fff]+/g,'')}
+
+function imageObj(file){
+  return {
+    file,
+    path: `${IMAGES_DIR}/${encodeURIComponent(file).replace(/%2F/g,'/')}`,
+    key: norm(file.replace(/\.[^.]+$/,''))
+  };
+}
+
+async function loadImagesFromLocalDirectory(){
+  // Works with python3 -m http.server because /images/ returns an HTML directory listing.
+  try{
+    const r = await fetch(`${IMAGES_DIR}/?ts=${Date.now()}`);
+    if(!r.ok) return [];
+    const html = await r.text();
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    const files = [...doc.querySelectorAll('a')]
+      .map(a => decodeURIComponent((a.getAttribute('href') || '').split('?')[0]))
+      .map(h => h.replace(/^\.?\//,''))
+      .filter(h => /\.(png|jpe?g|webp|gif|avif|svg)$/i.test(h))
+      .map(h => h.split('/').pop())
+      .filter(Boolean);
+    return [...new Set(files)].map(imageObj);
+  }catch(e){ return []; }
+}
+
+async function loadImagesFromGitHub(){
+  try{
+    const api = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${IMAGES_DIR}?ts=${Date.now()}`;
+    const r = await fetch(api);
+    if(!r.ok) return [];
+    const files = await r.json();
+    return (Array.isArray(files)?files:[])
+      .filter(f => f.type === 'file' && /\.(png|jpe?g|webp|gif|avif|svg)$/i.test(f.name))
+      .map(f => imageObj(f.name));
+  }catch(e){ return []; }
+}
+
+async function loadImages(){
+  // 1) localhost: read local images/ directory.
+  // 2) GitHub Pages: local directory listing usually unavailable, fallback to GitHub API.
+  let local = await loadImagesFromLocalDirectory();
+  if(local.length){
+    IMAGES = local;
+    return;
+  }
+  IMAGES = await loadImagesFromGitHub();
+}
+
+function getImage(card){
+  if(card.image && typeof card.image === 'string' && !card.image.startsWith('data:image')){
+    return card.image;
+  }
+  const keys = [norm(card.name), norm(card.product)].filter(Boolean);
+  let best = null, bestScore = 0;
+  for(const img of IMAGES){
+    const fileKey = img.key || norm(img.file || img.path || '');
+    for(const k of keys){
+      if(!k) continue;
+      let score = 0;
+      if(fileKey === k) score = 100;
+      else if(fileKey.includes(k)) score = 80 + Math.min(k.length, 20);
+      else if(k.includes(fileKey) && fileKey.length >= 3) score = 60 + Math.min(fileKey.length, 20);
+      else {
+        const parts = k.match(/[a-z0-9\u4e00-\u9fff]{3,}/g) || [];
+        for(const part of parts){
+          if(fileKey.includes(part)) score = Math.max(score, 35 + part.length);
+        }
+      }
+      if(score > bestScore){ bestScore = score; best = img; }
+    }
+  }
+  return bestScore >= 35 && best ? best.path : '';
+}
+
 async function loadData(){
-  try{ const r=await fetch('data.json?ts='+Date.now()); DATA=await r.json(); }
-  catch(e){ document.getElementById('app').innerHTML='<div class="banner"><h2>讀取失敗</h2><p>請確認 data.json 與 index.html 放在同一層。</p></div>'; return; }
+  try{
+    const [r] = await Promise.all([
+      fetch('data.json?ts='+Date.now()),
+      loadImages()
+    ]);
+    DATA=await r.json();
+  }catch(e){
+    document.getElementById('app').innerHTML='<div class="banner"><h2>讀取失敗</h2><p>請確認 data.json、index.html、images/ 放在同一層，並用 http://localhost:8000 開啟。</p></div>'; return;
+  }
   render();
 }
-function esc(s=''){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+
 function render(){
   siteTitle.textContent=DATA.siteTitle||''; siteSub.textContent=DATA.siteSubTitle||'';
   stats.innerHTML=(DATA.stats||[]).map(s=>`<div class="stat"><div class="n">${esc(s.value)}</div><div class="l">${esc(s.label)}</div></div>`).join('');
@@ -37,16 +126,18 @@ function render(){
   (sec.categories||[]).forEach(cat=>{
     html+=`<div class="cat-hd"><span class="cat-title">${esc(cat.title)}</span><div class="cat-line"></div></div><div class="cards">`;
     (cat.cards||[]).forEach(c=>{
+      const img = getImage(c);
       html+=`<article class="card">
-        <div class="card-img">${c.image?`<img src="${c.image}" alt="${esc(c.name)}">`:`<div class="empty-img">無圖片</div>`}</div>
+        <div class="card-img">${img?`<img src="${esc(img)}" alt="${esc(c.name)}">`:`<div class="empty-img">無圖片</div>`}</div>
         <div class="card-body"><div class="co-name">${esc(c.name)}</div>${c.badge?`<span class="badge">${esc(c.badge)}</span>`:''}<div class="prod">${esc(c.product)}</div><div class="desc">${esc(c.description)}</div>${c.highlight?`<div class="highlight">${c.highlight}</div>`:''}</div>
         <div class="tags">${(c.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
-        ${c.website?`<div class="foot"><a class="btn" href="${c.website}" target="_blank">官網</a></div>`:''}
+        ${c.website?`<div class="foot"><a class="btn" href="${esc(c.website)}" target="_blank">官網</a></div>`:''}
       </article>`;
     });
     html+='</div>';
   });
   app.innerHTML=html+'</section>';
 }
+
 loadData();
 </script></body></html>
