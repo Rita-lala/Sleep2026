@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="zh-TW"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 AASM SLEEP 展覽參展後產品彙報</title>
+<style>
+  :root {
+    --navy: #0D2137; --navy2: #1B3A6B; --cyan: #00B4D8;
+    --green: #15803D; --green-lt: #DCFCE7;
+    --blue-lt: #DBEAFE; --blue: #1D4ED8;
+    --red: #DC2626; --red-lt: #FEE2E2;
+    --amber: #B45309; --amber-lt: #FEF3C7;
+    --gray1: #F8FAFC; --gray2: #E2E8F0; --gray3: #94A3B8;
+    --text: #1E293B; --textm: #475569;
+    --implant: #7C3AED; --neuro: #0891B2; --oral: #EA580C;
+    --pap: #2563EB; --diag: #16A34A; --ai: #0EA5E9;
+    --wear: #4F46E5; --other: #64748B;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Arial', sans-serif; background: #E5E7EB; color: var(--text); }
+  @media print { body { background: white; } .slide { page-break-after: always; box-shadow: none; } }
+
+  /* ── SLIDE BASE ── */
+  .slide {
+    width: 100%; max-width: 960px;
+    background: white; margin: 24px auto;
+    box-shadow: 0 4px 24px rgba(0,0,0,.18);
+    position: relative; overflow: hidden;
+  }
+
+  /* ── COVER ── */
+  .slide.cover { background: var(--navy); color: white; padding: 48px 48px 32px; }
+  .cover .accent-bar { position: absolute; left:0; top:0; width:10px; height:100%; background:var(--cyan); }
+  .cover .circle { position: absolute; right:-80px; top:-120px; width:380px; height:380px; background:var(--navy2); border-radius:50%; }
+  .cover h1 { font-size: 40px; font-weight: 900; line-height:1.15; position:relative; z-index:1; }
+  .cover h1 span { color: var(--cyan); display:block; }
+  .cover .divider { width:520px; height:3px; background:#334155; margin:22px 0; }
+  .cover .meta { font-size:13px; line-height:2.0; color:#94A3B8; }
+  .cover .meta strong { color:var(--cyan); margin-right:6px; }
+  .cover .footer { position:absolute; bottom:20px; left:48px; right:48px; font-size:11px; color:#475569; font-style:italic; }
+
+  /* ── HEADER BAR ── */
+  .slide-header { background:var(--navy); padding:14px 32px 10px; position:relative; }
+  .slide-header::before { content:''; position:absolute; left:0; top:0; width:8px; height:100%; background:var(--cyan); }
+  .slide-header h2 { font-size:22px; color:white; padding-left:10px; }
+  .slide-header p { font-size:11px; color:var(--gray3); padding-left:10px; margin-top:2px; }
+
+  /* ── OVERVIEW ── */
+  .stat-row { display:flex; gap:14px; padding:18px 28px 12px; background:var(--gray1); }
+  .stat-box { flex:1; padding:14px; text-align:center; border-radius:6px; color:white; }
+  .stat-box .num { font-size:44px; font-weight:900; line-height:1; }
+  .stat-box .lbl { font-size:11px; margin-top:4px; opacity:.9; }
+  .cat-grid { display:grid; grid-template-columns:1fr 1fr; gap:0; padding:4px 28px 16px; background:var(--gray1); }
+  .cat-row { display:flex; align-items:center; gap:10px; padding:9px 10px; border:1px solid var(--gray2); background:white; font-size:10px; }
+  .cat-row:nth-child(odd) { background:var(--gray1); }
+  .cat-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+  .cat-name { font-weight:700; font-size:10.5px; min-width:110px; }
+  .cat-prods { color:var(--textm); flex:1; }
+  .cat-badge { background:var(--navy2); color:white; border-radius:50%; width:20px; height:20px; display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:700; flex-shrink:0; }
+
+  /* ── PRODUCT SECTION ── */
+  .products-bg { background:#F1F5F9; padding:18px 22px 24px; }
+  .cards-2 { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  .cards-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+  .card { background:white; border:1px solid rgba(226,232,240,.95); border-radius:20px; overflow:hidden; box-shadow:0 10px 28px rgba(15,23,42,.06); display:flex; flex-direction:column; transition:box-shadow .2s; }
+  .card-top { height:7px; border-radius:20px 20px 0 0; }
+  .card-img { width:100%; height:180px; object-fit:contain; background:#EEF2F7; display:block; padding:8px 0; }
+  .card-img-sm { width:100%; height:160px; object-fit:contain; background:#EEF2F7; display:block; padding:8px 0; }
+  .card-body { padding:16px 18px 12px; flex:1; }
+  .card-body h3 { font-size:19px; font-weight:800; color:var(--text); line-height:1.25; letter-spacing:-.02em; }
+  .card-body .company { font-size:12px; color:var(--textm); font-style:italic; margin:5px 0 10px; }
+  .fda-badge { display:inline-block; padding:5px 13px; border-radius:999px; font-size:11px; font-weight:700; color:white; margin-bottom:10px; letter-spacing:.01em; }
+  .fda-approved  { background:#16A34A; }
+  .fda-cleared   { background:#0284C7; }
+  .fda-registered{ background:#D97706; }
+  .fda-exempt    { background:#7C3AED; }
+  .fda-none      { background:#DC2626; }
+  .card-body hr { border:none; border-top:1px solid var(--gray2); margin:10px 0; }
+  /* Sleep2026-style highlight accent box */
+  .card-highlight { font-size:11px; line-height:1.8; padding:10px 13px; border-left:4px solid var(--cyan); border-radius:0 10px 10px 0; background:#F8FAFC; margin:8px 0 10px; color:#3f4b5f; }
+  /* hover lift */
+  .card:hover { box-shadow:0 16px 40px rgba(15,23,42,.12); transform:translateY(-2px); transition:all .2s; }
+  .card-body ul { padding-left:16px; font-size:12px; color:var(--textm); line-height:1.75; }
+  .card-body.sm ul { font-size:11px; }
+  .card-footer { background:var(--gray1); padding:12px 16px; border-top:1px solid rgba(226,232,240,.95); font-size:11.5px; line-height:1.6; border-radius:0 0 20px 20px; }
+  .card-footer strong { color:var(--text); }
+  .card-footer span { color:var(--textm); }
+
+  /* ── PRIORITY TABLE ── */
+  .table-wrap { padding:10px 20px 14px; background:var(--gray1); }
+  table.priority { width:100%; border-collapse:collapse; font-size:9px; }
+  table.priority th { background:var(--navy); color:white; padding:6px 8px; text-align:left; font-size:9px; }
+  table.priority td { padding:5px 8px; border:1px solid var(--gray2); vertical-align:middle; line-height:1.3; }
+  tr.p3 td { background:var(--green-lt); }
+  tr.p2 td { background:var(--blue-lt); }
+  tr.p1 td { background:white; }
+  tr.p0 td { background:var(--gray1); color:var(--textm); }
+  .priority-label { font-weight:700; }
+  .p3 .priority-label { color:var(--green); }
+  .p2 .priority-label { color:var(--blue); }
+  .p1 .priority-label { color:var(--amber); }
+  .p0 .priority-label { color:var(--gray3); }
+  .legend { display:flex; gap:20px; padding:8px 20px 4px; font-size:9px; color:var(--textm); }
+  .legend-item { display:flex; align-items:center; gap:6px; }
+  .legend-dot { width:12px; height:12px; border:2px solid; border-radius:2px; }
+
+  /* ── CONCLUSION ── */
+  .slide.conclusion { background:var(--navy); color:white; padding:40px 48px 32px; min-height:540px; }
+  .conclusion .accent-bar { position:absolute; left:0; top:0; width:10px; height:100%; background:var(--cyan); }
+  .conclusion .circle2 { position:absolute; right:-60px; bottom:-80px; width:300px; height:300px; background:var(--navy2); border-radius:50%; }
+  .conclusion h2 { font-size:24px; font-weight:700; color:white; position:relative; z-index:1; }
+  .conclusion .divider { width:420px; height:3px; background:#334155; margin:16px 0; }
+  .action-rows { display:flex; flex-direction:column; gap:10px; position:relative; z-index:1; }
+  .action-row { display:flex; gap:12px; align-items:flex-start; }
+  .action-bar { width:8px; min-height:44px; border-radius:2px; flex-shrink:0; margin-top:2px; }
+  .action-label { font-size:12px; font-weight:700; color:white; }
+  .action-val { font-size:10px; color:#94A3B8; margin-top:3px; }
+  .conclusion .follow-up { margin-top:22px; padding-top:16px; border-top:1px solid #334155; position:relative; z-index:1; }
+  .follow-up h4 { color:var(--cyan); font-size:13px; margin-bottom:6px; }
+  .follow-up p { color:#94A3B8; font-size:10.5px; line-height:1.6; }
+
+  /* navigation hint */
+  .nav-hint { text-align:center; font-size:11px; color:#9CA3AF; padding:8px; }
+
+
+
+@media (max-width: 680px) {
+
+}
+</style>
+
+<style>
+/* ══════════════════════════════════════════
+   RESPONSIVE OVERRIDES
+   ══════════════════════════════════════════ */
+
+/* ── MOBILE NAV BAR ── */
+#mobile-nav {
+  display: none;
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 999;
+  background: var(--navy); border-top: 2px solid var(--cyan);
+  padding: 0; box-shadow: 0 -4px 16px rgba(0,0,0,.3);
+}
+#mobile-nav .mnav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 6px 12px;
+}
+#mobile-nav .mnav-title {
+  font-size: 11px; color: var(--gray3); flex: 1; text-align: center;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+#mobile-nav button {
+  background: none; border: none; color: var(--cyan);
+  font-size: 22px; padding: 6px 10px; cursor: pointer; line-height: 1;
+  min-width: 44px; min-height: 44px;
+}
+#mobile-nav button:disabled { color: #334155; }
+#mobile-nav .mnav-counter {
+  font-size: 12px; color: white; font-weight: 700;
+  white-space: nowrap; padding: 0 6px;
+}
+/* progress bar */
+#nav-progress {
+  height: 3px; background: var(--cyan);
+  transition: width .3s ease; width: 0%;
+}
+
+/* slide section heading for mobile jump-menu */
+.slide[data-title] { scroll-margin-top: 12px; }
+
+/* ── TABLET (768–959px) ── */
+@media (max-width: 959px) {
+  body { background: #F1F5F9; }
+  .slide { margin: 16px auto; box-shadow: 0 2px 16px rgba(0,0,0,.12); }
+  .cards-3 { grid-template-columns: 1fr 1fr; }
+  .doc-grid { grid-template-columns: 1fr 1fr; }
+  .invite-summary { flex-wrap: wrap; }
+  .inv-sum-box { flex: 1 1 calc(50% - 5px); }
+}
+
+/* ── MOBILE (≤ 680px) ── */
+@media (max-width: 680px) {
+  html { font-size: 14px; }
+  body { background: #F1F5F9; padding-bottom: 64px; } /* room for nav bar */
+  #mobile-nav { display: block; }
+
+  .slide {
+    margin: 10px auto;
+    border-radius: 0;
+    box-shadow: 0 1px 8px rgba(0,0,0,.1);
+  }
+
+  /* ── COVER ── */
+  .slide.cover { padding: 32px 22px 28px; }
+  .cover h1 { font-size: 26px; }
+  .cover .divider { width: 100%; }
+  .cover .meta { font-size: 13px; line-height: 1.9; }
+  .cover .footer {
+    position: relative; bottom: auto; left: auto; right: auto;
+    margin-top: 20px; font-size: 11px;
+  }
+  .cover .circle { width: 180px; height: 180px; right: -50px; top: -60px; opacity: .5; }
+
+  /* ── HEADER BAR ── */
+  .slide-header { padding: 12px 18px 10px; }
+  .slide-header h2 { font-size: 17px; }
+  .slide-header p { font-size: 12px; }
+
+  /* ── STAT ROW ── */
+  .stat-row { flex-wrap: wrap; padding: 14px 16px 10px; gap: 10px; }
+  .stat-box { flex: 1 1 calc(50% - 5px); padding: 14px 10px; }
+  .stat-box .num { font-size: 40px; }
+  .stat-box .lbl { font-size: 12px; }
+
+  /* ── CAT GRID ── */
+  .cat-grid { grid-template-columns: 1fr; padding: 4px 16px 14px; }
+  .cat-row { padding: 11px 12px; font-size: 12px; }
+  .cat-name { font-size: 13px; min-width: 96px; }
+  .cat-prods { font-size: 11.5px; }
+  .cat-badge { width: 22px; height: 22px; font-size: 10px; }
+
+  /* ── PRODUCT CARDS ── */
+  .products-bg { padding: 14px 14px 18px; }
+  .cards-2 { grid-template-columns: 1fr; gap: 14px; }
+  .cards-3 { grid-template-columns: 1fr; gap: 14px; }
+
+  .card-img { height: 220px; }
+  .card-img-sm { height: 190px; }
+  .card-body { padding: 14px 16px; }
+  .card-body h3 { font-size: 20px; }
+  .card-body .company { font-size: 13px; margin: 6px 0 12px; }
+  .fda-badge { font-size: 13px; padding: 6px 14px; margin-bottom: 12px; }
+  .card-body hr { margin: 10px 0; }
+  .card-body ul { font-size: 14px; line-height: 1.8; }
+  .card-body.sm ul { font-size: 13.5px; }
+  .card-footer { font-size: 13px; padding: 14px 18px; line-height: 1.7; }
+
+  /* ── PRIORITY TABLE ── */
+  .table-wrap { padding: 10px 14px 12px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table.priority { font-size: 12.5px; min-width: 580px; }
+  table.priority th { font-size: 12px; padding: 8px 10px; }
+  table.priority td { padding: 7px 10px; font-size: 12px; }
+  .legend { flex-wrap: wrap; gap: 10px; padding: 8px 14px 8px; font-size: 12px; }
+  .legend-item { gap: 8px; }
+  .legend-dot { width: 14px; height: 14px; }
+
+  /* ── CONCLUSION ── */
+  .slide.conclusion { padding: 28px 22px 28px; min-height: unset; }
+  .conclusion h2 { font-size: 22px; }
+  .conclusion .divider { width: 100%; }
+  .conclusion .circle2 { width: 180px; height: 180px; right: -40px; bottom: -50px; opacity: .4; }
+  .action-label { font-size: 14px; }
+  .action-val { font-size: 12px; margin-top: 4px; }
+  .action-bar { min-height: 36px; }
+  .follow-up h4 { font-size: 14px; }
+  .follow-up p { font-size: 12px; line-height: 1.7; }
+
+  /* ── DOCTOR SLIDE ── */
+  .doc-grid { grid-template-columns: 1fr 1fr; gap: 10px; padding: 12px 14px 8px; }
+  .doc-name { font-size: 14px; }
+  .doc-title { font-size: 11px; }
+  .doc-key { font-size: 11px; }
+  .doc-stat .snum { font-size: 20px; }
+  .doc-stat .slbl { font-size: 10px; }
+  .doc-remark { font-size: 10px; }
+  .doc-photo { width: 70px; height: 70px; }
+  .doc-avatar { width: 82px; height: 96px; font-size: 24px; }
+
+  .invite-summary { flex-wrap: wrap; gap: 8px; padding: 10px 14px 8px; }
+  .inv-sum-box { flex: 1 1 calc(50% - 4px); padding: 8px 10px; gap: 8px; }
+  .inv-sum-box .isnum { font-size: 24px; }
+  .inv-sum-box .islbl { font-size: 10px; }
+  .inv-sum-box .islbl strong { font-size: 11px; }
+
+  .photo-hint { font-size: 11px; padding: 4px 8px 10px; }
+
+  /* ── NAV HINT ── */
+  .nav-hint { font-size: 12px; padding: 10px 14px; }
+}
+
+/* ── PRINT: keep 960px layout ── */
+@media (max-width: 400px) {
+  .doc-grid { grid-template-columns: 1fr; }
+  .inv-sum-box { flex: 1 1 100%; }
+  .stat-box { flex: 1 1 calc(50% - 5px); }
+  .cover h1 { font-size: 22px; }
+}
+
+
+@media print {
+  body { background: white; padding-bottom: 0; }
+  #mobile-nav { display: none !important; }
+  .slide {
+    width: 960px !important; max-width: none !important;
+    page-break-after: always; box-shadow: none; margin: 0 auto 0;
+  }
+}
+</style>
+
+
+
+<style id="doctor-fix">
+.doc-grid{display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:12px!important;padding:10px 20px!important}
+.doc-card{display:flex!important;flex-direction:column!important;align-items:center!important;padding:12px!important}
+.doc-card-top{display:none!important}
+.doc-photo-wrap{width:120px!important;height:120px!important;border-radius:50%!important;overflow:hidden!important;margin:0 auto 10px!important}
+.doc-photo{display:block!important;width:100%!important;height:100%!important;object-fit:cover!important}
+.doc-avatar{display:none!important}
+.doc-info{text-align:center!important;width:100%!important}
+.doc-name{font-size:16px!important;font-weight:800!important}
+.doc-title{font-size:11px!important;line-height:1.5!important;min-height:34px!important}
+.doc-key{font-size:10px!important;line-height:1.5!important;min-height:48px!important}
+.doc-stats{display:grid!important;grid-template-columns:1fr 1fr!important;gap:6px!important}
+</style>
+
+
+<style id="priority-mobile-fix">
+/* === 引進優先順序評估：桌機/手機閱讀優化 === */
+.priority {
+  width:100% !important;
+  border-collapse:separate !important;
+  border-spacing:0 !important;
+  font-size:10px !important;
+}
+.priority th {
+  background:#0D2137 !important;
+  color:#fff !important;
+  padding:8px 6px !important;
+  line-height:1.35 !important;
+  position:sticky;
+  top:0;
+  z-index:1;
+}
+.priority td {
+  padding:8px 6px !important;
+  line-height:1.45 !important;
+  vertical-align:middle !important;
+  border-bottom:1px solid #E2E8F0 !important;
+}
+.priority td:first-child {
+  font-weight:800 !important;
+  color:#0D2137 !important;
+}
+.priority-label {
+  font-weight:800 !important;
+  white-space:normal !important;
+}
+.table-wrap {
+  overflow-x:auto !important;
+  -webkit-overflow-scrolling:touch !important;
+  padding:0 14px 6px !important;
+}
+
+/* 手機改為卡片式，不再橫向擠壓 */
+@media (max-width: 768px) {
+  .slide[data-title="引進優先順序評估"] {
+    padding-bottom:76px !important;
+  }
+  .slide[data-title="引進優先順序評估"] .slide-header {
+    padding:16px 16px 10px !important;
+  }
+  .slide[data-title="引進優先順序評估"] .slide-header h2 {
+    font-size:22px !important;
+    line-height:1.25 !important;
+  }
+  .slide[data-title="引進優先順序評估"] .slide-header p {
+    font-size:13px !important;
+    line-height:1.5 !important;
+  }
+  .table-wrap {
+    padding:0 14px 8px !important;
+    overflow:visible !important;
+  }
+  table.priority,
+  table.priority thead,
+  table.priority tbody,
+  table.priority tr,
+  table.priority th,
+  table.priority td {
+    display:block !important;
+    width:100% !important;
+  }
+  table.priority thead {
+    display:none !important;
+  }
+  table.priority tr {
+    position:relative !important;
+    margin:0 0 12px !important;
+    padding:12px 12px 10px !important;
+    border:1px solid #E2E8F0 !important;
+    border-radius:14px !important;
+    background:#FFFFFF !important;
+    box-shadow:0 4px 14px rgba(15,23,42,.08) !important;
+    overflow:hidden !important;
+  }
+  table.priority tr.p3 {
+    border-left:6px solid #15803D !important;
+    background:linear-gradient(90deg,#F0FDF4 0%,#FFFFFF 28%) !important;
+  }
+  table.priority tr.p2 {
+    border-left:6px solid #2563EB !important;
+    background:linear-gradient(90deg,#EFF6FF 0%,#FFFFFF 28%) !important;
+  }
+  table.priority tr.p1 {
+    border-left:6px solid #B45309 !important;
+    background:linear-gradient(90deg,#FFFBEB 0%,#FFFFFF 28%) !important;
+  }
+  table.priority tr.p0 {
+    border-left:6px solid #94A3B8 !important;
+    background:linear-gradient(90deg,#F8FAFC 0%,#FFFFFF 28%) !important;
+  }
+  table.priority td {
+    display:flex !important;
+    justify-content:space-between !important;
+    gap:12px !important;
+    align-items:flex-start !important;
+    padding:6px 0 !important;
+    border-bottom:1px dashed #E2E8F0 !important;
+    font-size:13px !important;
+    line-height:1.5 !important;
+    text-align:right !important;
+  }
+  table.priority td:last-child {
+    border-bottom:none !important;
+    padding-bottom:0 !important;
+  }
+  table.priority td::before {
+    flex:0 0 84px !important;
+    text-align:left !important;
+    color:#64748B !important;
+    font-size:12px !important;
+    font-weight:800 !important;
+  }
+  table.priority td:nth-child(1)::before { content:"品牌 / 產品"; }
+  table.priority td:nth-child(2)::before { content:"類別"; }
+  table.priority td:nth-child(3)::before { content:"FDA 狀態"; }
+  table.priority td:nth-child(4)::before { content:"定價概況"; }
+  table.priority td:nth-child(5)::before { content:"引進優先"; }
+  table.priority td:first-child {
+    display:block !important;
+    text-align:left !important;
+    font-size:17px !important;
+    font-weight:900 !important;
+    color:#0D2137 !important;
+    border-bottom:1px solid #E2E8F0 !important;
+    padding-bottom:8px !important;
+    margin-bottom:4px !important;
+  }
+  table.priority td:first-child::before {
+    content:"" !important;
+    display:none !important;
+  }
+  table.priority .priority-label {
+    color:#0D2137 !important;
+    font-size:13px !important;
+    font-weight:900 !important;
+  }
+  .legend {
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    gap:6px !important;
+    padding:10px 16px 14px !important;
+    font-size:12px !important;
+  }
+  .legend-item {
+    justify-content:flex-start !important;
+    line-height:1.4 !important;
+  }
+}
+
+/* 平板寬度：保持表格，但放大字級與允許橫向滑動 */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .priority { min-width:820px !important; font-size:11px !important; }
+  .priority td, .priority th { padding:9px 7px !important; }
+}
+</style>
+
+</head><body><script>// Mobile nav bar controller
+(function(){
+  function init(){
+    var slides = Array.from(document.querySelectorAll('.slide'));
+    var nav    = document.getElementById('mobile-nav');
+    var title  = document.getElementById('mnav-title');
+    var counter= document.getElementById('mnav-counter');
+    var prog   = document.getElementById('nav-progress');
+    var btnP   = document.getElementById('mnav-prev');
+    var btnN   = document.getElementById('mnav-next');
+    if(!nav || slides.length===0) return;
+
+    // Assign page numbers and data-title
+    var labels = [];
+    slides.forEach(function(s,i){
+      s.id = s.id || ('slide-'+(i+1));
+      labels.push(s.getAttribute('data-title') || ('第 '+(i+1)+' 頁'));
+    });
+
+    var current = 0;
+
+    function update(idx){
+      current = Math.max(0, Math.min(slides.length-1, idx));
+      counter.textContent = (current+1)+' / '+slides.length;
+      title.textContent   = labels[current];
+      btnP.disabled = current===0;
+      btnN.disabled = current===slides.length-1;
+      prog.style.width = ((current+1)/slides.length*100)+'%';
+    }
+
+    function goTo(idx){
+      update(idx);
+      slides[current].scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    btnP.addEventListener('click', function(){ goTo(current-1); });
+    btnN.addEventListener('click', function(){ goTo(current+1); });
+
+    // IntersectionObserver to auto-update current slide
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          var idx = slides.indexOf(e.target);
+          if(idx&gt;=0) update(idx);
+        }
+      });
+    },{threshold: 0.3});
+    slides.forEach(function(s){ io.observe(s); });
+
+    update(0);
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else { init(); }
+})();
+</script>
+
+
+<!-- ── MOBILE BOTTOM NAV ── -->
+<div id="mobile-nav">
+  <div id="nav-progress"></div>
+  <div class="mnav-inner">
+    <button id="mnav-prev" disabled="" aria-label="上一頁">←</button>
+    <span id="mnav-title" class="mnav-title">封面</span>
+    <span id="mnav-counter" class="mnav-counter">1 / 13</span>
+    <button id="mnav-next" aria-label="下一頁">→</button>
+  </div>
+</div>
+
+<div class="nav-hint" spellcheck="false">2026 AASM 展覽參展後產品彙報 — 科林儀器股份有限公司 — 共 13 頁</div>
+
+<!-- ══ SLIDE 1: COVER ══ -->
+<div class="slide cover" data-title="封面">
+  <div class="accent-bar"></div>
+  <div class="circle"></div>
+  <h1 spellcheck="false">2026 AASM SLEEP 展覽<span>參展後產品彙報</span></h1>
+  <div class="divider"></div>
+  <div class="meta" spellcheck="false">
+    <div><strong>展覽資訊：</strong>AASM SLEEP 2026 &nbsp;|&nbsp; Baltimore, MD, USA &nbsp;|&nbsp; June 14–17, 2026</div>
+    <div></div>
+    <div><strong>報告目的：</strong>供內部主管評估引進產品之參考</div>
+  </div>
+  <div class="footer">本報告收錄 19 項產品，橫跨 7 大類別，每項均標示 FDA 認證狀態及引進優先順序（可調整）</div>
+</div>
+
+<!-- ══ SLIDE 2: 國內醫師邀請機制 ══ -->
+<style>
+  /* ── DOCTOR INVITE SLIDE ── */
+  .doc-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; padding:14px 20px 10px; background:var(--gray1); }
+  .doc-card { background:white; border:1px solid var(--gray2); border-radius:8px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,.07); display:flex; flex-direction:column; }
+  .doc-card-top { height:5px; background:var(--cyan); }
+  .doc-photo-wrap { display:flex; justify-content:center; padding:12px 12px 6px; }
+  .doc-photo {
+    width:80px; height:80px; border-radius:50%; object-fit:cover; object-position:top;
+    border:3px solid var(--gray2);
+  }
+  .doc-avatar {
+    width:80px; height:80px; border-radius:50%;
+    background:linear-gradient(135deg, var(--navy2), var(--cyan));
+    display:flex; align-items:center; justify-content:center;
+    font-size:22px; font-weight:900; color:white; border:3px solid var(--gray2);
+    flex-shrink:0;
+  }
+  .doc-info { padding:0 12px 10px; text-align:center; flex:1; }
+  .doc-name { font-size:15px; font-weight:700; color:var(--text); }
+  .doc-title { font-size:9.5px; color:var(--textm); margin:3px 0 6px; }
+  .doc-key { font-size:8.5px; color:var(--textm); line-height:1.5; text-align:left; padding:6px 8px; background:var(--gray1); border-radius:4px; margin-bottom:8px; }
+  .doc-stats { display:flex; gap:6px; margin-top:4px; }
+  .doc-stat { flex:1; text-align:center; border-radius:4px; padding:5px 4px; }
+  .doc-stat .snum { font-size:18px; font-weight:900; line-height:1; }
+  .doc-stat .slbl { font-size:7.5px; margin-top:2px; }
+  .doc-remark { font-size:8px; color:var(--amber); text-align:center; padding:4px 8px; font-style:italic; }
+
+  /* summary bar */
+  .invite-summary { display:flex; gap:10px; padding:8px 20px 10px; background:var(--gray1); }
+  .inv-sum-box { flex:1; background:white; border:1px solid var(--gray2); border-radius:6px; padding:8px 12px; display:flex; align-items:center; gap:10px; }
+  .inv-sum-box .isnum { font-size:28px; font-weight:900; color:var(--cyan); line-height:1; }
+  .inv-sum-box .islbl { font-size:9px; color:var(--textm); line-height:1.4; }
+  .inv-sum-box .islbl strong { display:block; color:var(--text); font-size:10px; }
+  .photo-hint { text-align:center; font-size:8.5px; color:var(--gray3); padding:2px 0 6px; font-style:italic; }
+</style>
+<div class="slide" data-title="國內醫師邀請機制">
+  <div class="slide-header">
+    <h2 spellcheck="false">國內醫師學術支持暨 AASM 參展邀請機制</h2>
+    <p spellcheck="false">本次贊助 4 位睡眠醫學領域醫師出席 AASM 2026，強化業務關係並提升合作穩定性</p>
+  </div>
+
+  <!-- 效益摘要列 -->
+  <div class="invite-summary">
+    <div class="inv-sum-box">
+      <div class="isnum" spellcheck="false">4</div>
+      <div class="islbl"><strong spellcheck="false">贊助醫師人數</strong>學術支持 · 產業參訪</div>
+    </div>
+
+
+
+  </div>
+
+  <!-- 4 位醫師卡片 -->
+  <div class="doc-grid">
+
+    <!-- 許巍鐘 -->
+    <div class="doc-card">
+      <div class="doc-card-top"></div>
+      <div class="doc-photo-wrap">
+        <!-- 請將下方 src 換成醫師照片路徑，或刪除 img 標籤顯示預設頭像 -->
+        <img class="doc-photo" src="images/doctor_xu.jpg" alt="許巍鐘醫師" style="display: none;">
+        <div class="doc-avatar" style="display:none">許</div>
+      </div>
+      <div class="doc-info">
+        <div class="doc-name" spellcheck="false">許巍鐘 醫師</div>
+        <div class="doc-title" spellcheck="false">臺大醫院 耳鼻喉科教授<br>台大睡眠中心主任</div>
+        <div class="doc-key" spellcheck="false">🔑 助聽器今年即將續約；睡眠業績延續</div>
+        <div class="doc-stats">
+          <div class="doc-stat" style="background:#DBEAFE">
+            <div class="snum" style="color:var(--blue)" spellcheck="false">91</div>
+            <div class="slbl" style="color:var(--textm)" spellcheck="false">2025/9~12</div>
+          </div>
+          <div class="doc-stat" style="background:#DCFCE7">
+            <div class="snum" style="color:var(--green)" spellcheck="false">123</div>
+            <div class="slbl" style="color:var(--textm)" spellcheck="false">2026/01~04</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 李昶慶 -->
+    <div class="doc-card">
+      <div class="doc-card-top"></div>
+      <div class="doc-photo-wrap">
+        <img class="doc-photo" src="images/doctor_li.jpg" alt="李昶慶醫師" style="display: none;">
+        <div class="doc-avatar" style="display:none">李</div>
+      </div>
+      <div class="doc-info">
+        <div class="doc-name" spellcheck="false">李昶慶 醫師</div>
+        <div class="doc-title" spellcheck="false">嘉義基督教醫院<br>睡眠中心主任</div>
+        <div class="doc-key" spellcheck="false">🔑 原黃健祐轉任至嘉基，建立關係穩定未來睡眠流量</div>
+        <div class="doc-stats">
+          <div class="doc-stat" style="background:#DBEAFE">
+            <div class="snum" style="color:var(--blue)" spellcheck="false">8</div>
+            <div class="slbl" style="color:var(--textm)" spellcheck="false">2025/9~12</div>
+          </div>
+          <div class="doc-stat" style="background:#DCFCE7">
+            <div class="snum" style="color:var(--green)" spellcheck="false">24</div>
+            <div class="slbl" style="color:var(--textm)" spellcheck="false">2026/01~04</div>
+          </div>
+        </div>
+        <div class="doc-remark" spellcheck="false"></div>
+      </div>
+    </div>
+
+    <!-- 鄒永恩 -->
+    <div class="doc-card">
+      <div class="doc-card-top"></div>
+      <div class="doc-photo-wrap">
+        <img class="doc-photo" src="images/doctor_zou.jpg" alt="鄒永恩醫師" style="display: none;">
+        <div class="doc-avatar" style="display:none">鄒</div>
+      </div>
+      <div class="doc-info">
+        <div class="doc-name" spellcheck="false">鄒永恩 醫師</div>
+        <div class="doc-title" spellcheck="false">中國醫藥大學附設醫院<br>ENT 主任</div>
+        <div class="doc-key" spellcheck="false">🔑 耳鼻科醫師專家；增長穩定睡眠流量</div>
+        <div class="doc-stats">
+          <div class="doc-stat" style="background:#DBEAFE">
+            <div class="snum" style="color:var(--blue)" spellcheck="false">11</div>
+            <div class="slbl" style="color:var(--textm)" spellcheck="false">2025/9~12</div>
+          </div>
+          <div class="doc-stat" style="background:#FEF3C7">
+            <div class="snum" style="color:var(--amber)" spellcheck="false">8</div>
+            <div class="slbl" style="color:var(--textm)" spellcheck="false">2026/01~04</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 潘奕安 -->
+    <div class="doc-card">
+      <div class="doc-card-top"></div>
+      <div class="doc-photo-wrap">
+        <img class="doc-photo" src="images/doctor_pan.png" alt="潘奕安醫師" style="display: none;">
+        <div class="doc-avatar" style="display:none">潘</div>
+      </div>
+      <div class="doc-info">
+        <div class="doc-name" spellcheck="false">潘奕安 醫師</div>
+        <div class="doc-title" spellcheck="false">馬偕醫院<br>睡眠醫學／培音醫師</div>
+        <div class="doc-key" spellcheck="false">🔑 前年考上睡專；睡眠病患逐漸增多，列為培音醫師</div>
+        <div class="doc-stats">
+          <div class="doc-stat" style="background:#DBEAFE">
+            <div class="snum" style="color:var(--blue)" spellcheck="false">43</div>
+            <div class="slbl" style="color:var(--textm)" spellcheck="false">2025全年</div>
+          </div>
+          <div class="doc-stat" style="background:#FEF3C7">
+            <div class="snum" style="color:var(--amber)" spellcheck="false">15</div>
+            <div class="slbl" style="color:var(--textm)" spellcheck="false">2026/01~04</div>
+          </div>
+        </div>
+        <div class="doc-remark" spellcheck="false"></div>
+      </div>
+    </div>
+
+  </div>
+  <div class="photo-hint" spellcheck="false">📷 如需顯示醫師照片，請將照片命名後放入同目錄 <strong>./醫師照片/</strong> 資料夾（如：許巍鐘.jpg），或請洽詢 IT 協助替換</div>
+</div>
+
+<!-- ══ SLIDE 3: OVERVIEW ══ -->
+<div class="slide" data-title="產品分類總覽">
+  <div class="slide-header">
+    <h2 spellcheck="false">本次展覽產品分類總覽</h2>
+    <p spellcheck="false">AASM SLEEP 2026 — 19 項產品 · 7 大類別</p>
+  </div>
+  <div class="stat-row">
+    <div class="stat-box" style="background:var(--cyan)"><div class="num" spellcheck="false">17</div><div class="lbl" spellcheck="false">參展收錄產品</div></div>
+    <div class="stat-box" style="background:var(--navy2)"><div class="num" spellcheck="false">7</div><div class="lbl" spellcheck="false">產品類別</div></div>
+    <div class="stat-box" style="background:var(--green)"><div class="num" spellcheck="false">15</div><div class="lbl" spellcheck="false">FDA 認證產品</div></div>
+    <div class="stat-box" style="background:#EA580C"><div class="num" spellcheck="false">3</div><div class="lbl" spellcheck="false">2025–26 新核准</div></div>
+  </div>
+  <div class="cat-grid">
+    <div class="cat-row"><div class="cat-dot" style="background:var(--implant)"></div><div class="cat-name" spellcheck="false">植入式電刺激</div><div class="cat-prods" spellcheck="false">Inspire、Nyxoah Genio、LivaNova aura6000</div><div class="cat-badge" style="background:var(--implant)">3</div></div>
+    <div class="cat-row"><div class="cat-dot" style="background:var(--diag)"></div><div class="cat-name" spellcheck="false">睡眠檢測工具</div><div class="cat-prods" spellcheck="false">WatchPAT 400、Dormotech、Wesper Lab、Z Machine</div><div class="cat-badge" style="background:var(--diag)">4</div></div>
+    <div class="cat-row"><div class="cat-dot" style="background:var(--neuro)"></div><div class="cat-name" spellcheck="false">非侵入式神經電刺激</div><div class="cat-prods" spellcheck="false">eXciteOSA、Neurovalens Modius Sleep</div><div class="cat-badge" style="background:var(--neuro)">2</div></div>
+    <div class="cat-row"><div class="cat-dot" style="background:var(--ai)"></div><div class="cat-name" spellcheck="false">線上 AI 整合平台</div><div class="cat-prods" spellcheck="false">SleepImage</div><div class="cat-badge" style="background:var(--ai)">1</div></div>
+    <div class="cat-row"><div class="cat-dot" style="background:var(--oral)"></div><div class="cat-name" spellcheck="false">口腔裝置（牙套）</div><div class="cat-prods" spellcheck="false">Daybreak、GoodSleepco Hushd</div><div class="cat-badge" style="background:var(--oral)">2</div></div>
+    <div class="cat-row"><div class="cat-dot" style="background:var(--wear)"></div><div class="cat-name" spellcheck="false">穿戴裝置</div><div class="cat-prods" spellcheck="false">Empatica EmbracePlus</div><div class="cat-badge" style="background:var(--wear)">1</div></div>
+    <div class="cat-row"><div class="cat-dot" style="background:var(--pap)"></div><div class="cat-name" spellcheck="false">呼吸器 + 清潔</div><div class="cat-prods" spellcheck="false">Sleepnet、CleanSleep</div><div class="cat-badge" style="background:var(--pap)">2</div></div>
+    <div class="cat-row"><div class="cat-dot" style="background:var(--other)"></div><div class="cat-name" spellcheck="false">其他睡眠輔助</div><div class="cat-prods" spellcheck="false">Moonbird、Intake Magnetic Nasal Strip</div><div class="cat-badge" style="background:var(--other)">2</div></div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 3: 植入式電刺激 ══ -->
+<div class="slide" data-title="植入式電刺激">
+  <div class="slide-header" style="border-left:8px solid var(--implant)">
+    <h2 spellcheck="false">睡眠治療工具 — 植入式電刺激（HNS）</h2>
+    <p spellcheck="false">Implantable Hypoglossal Nerve Stimulation &nbsp;|&nbsp; 3 項產品</p>
+    <p spellcheck="false" style="margin-top:5px;font-size:10.5px;color:#CBD5E1;padding-left:10px;">
+      ⚠️ 此類商品擴展市場，首要評估該國家是否有保險給付或健保，為導入評估要件 &nbsp;｜&nbsp; 
+      👥 隨訪醫師：需要台灣醫師團隊與我方共同協作，以提升引進機率
+    </p>
+  </div>
+  <div class="products-bg">
+    <div class="cards-3">
+      <div class="card">
+        <div class="card-top" style="background:var(--implant)"></div><div class="photo-area"><img class="card-img" src="./images/prod_01.png" style="display: block;"><div class="photo-placeholder" style="display: none;"><span class="ph-icon">📷</span><span class="ph-lbl">點擊新增照片</span></div><button class="photo-change-btn" style="">📷 更換照片</button><input type="file" accept="image/*" style="display: none;"></div>
+        <div class="card-body sm">
+          <h3 spellcheck="false">Inspire UAS</h3>
+          <div class="company" spellcheck="false">Inspire Medical Systems, Inc.</div>
+          <span class="fda-badge fda-approved" spellcheck="false">FDA Approved</span>
+          <hr>
+          <ul>
+            <li spellcheck="false">舌下神經刺激（UAS），3 件式植入系統</li>
+            <li spellcheck="false">適應症：AHI 15–100（2023年擴大）</li>
+            <li spellcheck="false">2014 年首獲 FDA 核准，市場領導者</li>
+            <li spellcheck="false">患者遙控器控制<br></li>
+          </ul>
+        </div>
+        <div class="card-footer" spellcheck="false"><strong>定價：手術</strong><span>費用約 USD $30,000–$40,000</span><div><font color="#475569">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(台灣預估200萬~250萬)<br></font><strong>🔑 展會突破：</strong><span>Andreas Henke（Vice President）— 首次取得關鍵決策人聯絡，優先跟進</span></div></div>
+      </div>
+      <div class="card">
+        <div class="card-top" style="background:var(--implant)"></div><div class="photo-area"><img class="card-img" src="./images/prod_02.jpg" style="display: block;"><div class="photo-placeholder" style="display: none;"><span class="ph-icon">📷</span><span class="ph-lbl">點擊新增照片</span></div><button class="photo-change-btn" style="">📷 更換照片</button><input type="file" accept="image/*" style="display: none;"></div>
+        
+        <div class="card-body sm">
+          <h3 spellcheck="false">Genio® HGNS</h3>
+          <div class="company" spellcheck="false">Nyxoah S.A.</div>
+          <span class="fda-badge fda-approved" spellcheck="false">FDA Approved</span>
+          <hr>
+          <ul>
+            <li spellcheck="false">雙側舌下神經刺激，無電池植入設計</li>
+            <li spellcheck="false">適應症：AHI 15–65，BMI ≤ 32</li>
+            <li spellcheck="false">外部貼片傳遞能量，免定期換電池</li>
+            <li spellcheck="false"><strong>2025 年 8 月獲 FDA 核准（全新上市）</strong></li>
+          </ul>
+        </div>
+        <div class="card-footer" spellcheck="false"><strong>定價：</strong><span>未公開（機構洽詢，表示與Inspire差不多）</span><br><strong>聯絡：</strong><span>Loïc Moreau（President International）— LinkedIn 已連結</span></div>
+      </div>
+      <div class="card">
+        <div class="card-top" style="background:var(--implant)"></div><div class="photo-area"><img class="card-img-sm" src="./睡眠治療工具/植入式電刺激/LivaNova-01.jpg" alt="LivaNova aura6000" onerror="this.style.display='none'" style="display: none;"><div class="photo-placeholder" style="display: flex;"><span class="ph-icon">📷</span><span class="ph-lbl">點擊新增照片</span></div><button class="photo-change-btn" style="display: none;">📷 更換照片</button><input type="file" accept="image/*" style="display: none;"></div>
+        
+        <div class="card-body sm">
+          <h3 spellcheck="false">aura6000™ pHGNS</h3>
+          <div class="company" spellcheck="false">LivaNova PLC</div>
+          <span class="fda-badge fda-approved" spellcheck="false">FDA Approved</span>
+          <hr>
+          <ul>
+            <li spellcheck="false">近端舌下神經刺激，6 個獨立控制電極</li>
+            <li spellcheck="false">適應症：AHI 15–65，含 CCC 患者</li>
+            <li spellcheck="false">可程式化個人化治療，擴大適用族群</li>
+            <li spellcheck="false"><strong>2026 年 3 月獲 FDA PMA 核准（最新）</strong></li>
+          </ul>
+        </div>
+        <div class="card-footer" spellcheck="false"><strong>定價：</strong><span>未公開（機構洽詢</span><span style="color: rgb(71, 85, 105);">，表示與Inspire差不多</span><span>）</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 4: 非侵入式神經電刺激 ══ -->
+<div class="slide" data-title="非侵入式神經電刺激">
+  <div class="slide-header" style="border-left:8px solid var(--neuro)">
+    <h2 spellcheck="false">睡眠治療工具 — 非侵入式神經電刺激</h2>
+    <p spellcheck="false">Non-Invasive Neurostimulation &nbsp;|&nbsp; 2 項產品</p>
+  </div>
+  <div class="products-bg">
+    <div class="cards-2">
+      <div class="card">
+        <div class="card-top" style="background:var(--neuro)"></div><div class="photo-area"><img class="card-img" src="./images/prod_03.png" style="display: block;"><div class="photo-placeholder" style="display: none;"><span class="ph-icon">📷</span><span class="ph-lbl">點擊新增照片</span></div><button class="photo-change-btn" style="">📷 更換照片</button><input type="file" accept="image/*" style="display: none;"></div>
+        <div class="card-body">
+          <h3 spellcheck="false">eXciteOSA®</h3>
+          <div class="company" spellcheck="false">Signifier Medical Technologies</div>
+          <span class="fda-badge fda-cleared" spellcheck="false">FDA Cleared</span>
+          <hr>
+          <ul>
+            <li spellcheck="false">舌頭神經肌肉電刺激（NMES），<strong>日間</strong>使用</li>
+            <li spellcheck="false">適應症：打鼾及輕度 OSA（AHI &lt; 15）</li>
+            <li spellcheck="false">每天 20 分鐘 × 6 週療程，後維護使用</li>
+            <li spellcheck="false">非侵入、無須睡眠時配戴，居家自行操作</li>
+            <li spellcheck="false">可補充現有 CPAP / MAD 療法</li>
+          </ul>
+        </div>
+        <div class="card-footer" spellcheck="false"><strong>定價：</strong><span>USD $1,650（裝置）＋ $150 / 3 個月（耗材）</span><br><strong>聯絡：</strong><span>Jay Cranston（行銷）jay.c@signifiermedical.com ｜ Cammie Osborne（臨床研究）cammie.o@signifiermedical.com ｜ Michael Shea（Spring Sleep 經銷）michael@springsleep.com ｜ <em>原廠轉介亞洲區負責人中</em></span></div>
+      </div>
+      <div class="card">
+        <div class="card-top" style="background:var(--neuro)"></div><div class="photo-area"><img class="card-img" src="./images/prod_04.jpg" style="display: block;"><div class="photo-placeholder" style="display: none;"><span class="ph-icon">📷</span><span class="ph-lbl">點擊新增照片</span></div><button class="photo-change-btn" style="">📷 更換照片</button><input type="file" accept="image/*" style="display: none;"></div>
+        
+        <div class="card-body">
+          <h3 spellcheck="false">Modius Sleep</h3>
+          <div class="company" spellcheck="false">Neurovalens Ltd.</div>
+          <span class="fda-badge fda-cleared" spellcheck="false">FDA Cleared</span>
+          <hr>
+          <ul>
+            <li spellcheck="false">前庭神經電刺激&gt;腦幹&gt;穩定神經，頭戴式裝置</li>
+            <li spellcheck="false">適應症：慢性失眠（非 OSA）/焦慮/PTSD，<strong>無藥物</strong></li>
+            <li spellcheck="false">每晚睡前佩戴 30 分鐘，影響下視丘/腦幹</li>
+            <li spellcheck="false">2023 年 10 月獲 FDA 510(k) 核准</li>
+            <li spellcheck="false">臨床試驗：4 週後 95% 受試者睡眠改善</li>
+          </ul>
+        </div>
+        <div class="card-footer" spellcheck="false"><strong>定價：</strong><span>USD $2,300</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 5: 口腔裝置 ══ -->
+<div class="slide" data-title="口腔裝置">
+  <div class="slide-header" style="border-left:8px solid var(--oral)">
+    <h2 spellcheck="false">睡眠治療工具 — 口腔裝置（牙套）</h2>
+    <p spellcheck="false">Oral Appliance Therapy &nbsp;|&nbsp; 2 項產品</p>
+  </div>
+  <div class="products-bg">
+    <div class="cards-2">
+      <div class="card">
+        <div class="card-top" style="background:var(--oral)"></div><div class="photo-area"><img class="card-img" src="./images/prod_05.jpg" style="display: block;"><div class="photo-placeholder" style="display: none;"><span class="ph-icon">📷</span><span class="ph-lbl">點擊新增照片</span></div><button class="photo-change-btn" style="">📷 更換照片</button><input type="file" accept="image/*" style="display: none;"></div>
+        
+        
+        <div class="card-body">
+          <h3 spellcheck="false">Daybreak MAD</h3>
+          <div class="company" spellcheck="false">Daybreak</div>
+          <span class="fda-badge fda-cleared" spellcheck="false">FDA Cleared</span>
+          <hr>
+          <ul>
+            <li spellcheck="false">客製化下顎前移裝置（MAD），FDA 核准治療 OSA</li>
+            <li spellcheck="false">遠距醫療模式：居家取模，牙醫師+睡眠醫師遠端協作</li>
+            <li spellcheck="false">無需多次診所就診，裝置郵寄到府</li>
+            <li spellcheck="false">臨床實證：83% 患者 AHI 下降 ≥ 50%</li>
+            <li spellcheck="false">保險給付，含居家睡眠測試追蹤療效</li>
+          </ul>
+        </div>
+        <div class="card-footer" spellcheck="false"><strong>定價：</strong><span>保險給付；自費約 USD $2,300（非保險給付項目）</span></div>
+      </div>
+      <div class="card">
+        <div class="card-top" style="background:var(--oral)"></div><div class="photo-area"><img class="card-img" src="./images/prod_06.png" style="display: block;"><div class="photo-placeholder" style="display: none;"><span class="ph-icon">📷</span><span class="ph-lbl">點擊新增照片</span></div><button class="photo-change-btn" style="">📷 更換照片</button><input type="file" accept="image/*" style="display: none;"></div>
+        
+        <div class="card-body">
+          <h3 spellcheck="false">Hushd Pro / Hushd Avera</h3>
+          <div class="company" spellcheck="false">Good Sleep Co.</div>
+          <span class="fda-badge fda-cleared" spellcheck="false">FDA Cleared</span>
+          <hr>
+          <ul>
+            <li spellcheck="false">多級策略：OTC 試用 + 處方客製化 MAD(下顎前移裝置)</li>
+            <li spellcheck="false">Hushd Avera OTC：Boil-and-bite(熱塑型)，FDA 核准打鼾適應症</li>
+            <li spellcheck="false">Hushd Pro Z-Link(高階)：處方 MAD，輕至中度 OSA（2025/11 核准）</li>
+            <li spellcheck="false">已通過 PDAC HCPCS 保險代碼審核</li>
+            <li spellcheck="false">生態系整合：可連接 <strong>Hushd Sense</strong> 居家監測裝置，提供以下監測資訊：
+              <ul style="margin-top:4px;padding-left:12px;font-size:8.5px;line-height:1.6;">
+                <li spellcheck="false">🎵 睡眠呼吸音分析（打鼾頻率與強度評分）</li>
+                <li spellcheck="false">🩸 血氧濃度（SpO₂）</li>
+                <li spellcheck="false">❤️ 心率（Heart Rate）</li>
+                <li spellcheck="false">🔄 睡眠姿勢偵測（仰睡 / 側睡）</li>
+                <li spellcheck="false">🌙 睡眠分期（淺眠、深眠、REM）</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div class="card-footer" spellcheck="false"><strong>定價：未提供</strong><div><strong style="color: rgb(30, 41, 59);">聯絡：Kyle Eden負責亞洲區&nbsp; kyle.eden@goodsleepco.health</strong><strong></strong></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 6: 呼吸器 ══ -->
+<div class="slide" data-title="呼吸器 / CPAP">
+  <div class="slide-header" style="border-left:8px solid var(--pap)">
+    <h2 spellcheck="false">睡眠治療工具 — 呼吸器 / CPAP 相關</h2>
+    <p spellcheck="false">PAP Therapy &amp; CPAP Maintenance &nbsp;|&nbsp; 2 項產品</p>
+  </div>
+  <div class="products-bg">
+    <div class="cards-3">
+
+      <div class="card">
+        <div class="card-top" style="background:var(--pap)"></div><div class="photo-area"><img class="card-img-sm" src="./Sleepnet產品圖.jpg" alt="Sleepnet Select" onerror="this.style.display='none'" style="display: none;"><div class="photo-placeholder" style="display: flex;"><span class="ph-icon">📷</span><span class="ph-lbl">點擊新增照片</span></div><button class="photo-change-btn" style="display: none;">📷 更換照片</button><input type="file" accept="image/*" style="display: none;"></div>
+        
+        <div class="card-body sm">
+          <h3 spellcheck="false">Sleepnet Select</h3>
+          <div class="company" spellcheck="false">Sleepnet Corporation</div>
+          <span class="fda-badge fda-cleared" spellcheck="false">FDA Cleared</span>
+          <hr>
+          <ul>
+            <li spellcheck="false">該產品正在申請FDA認證，預估在半年</li>
+            <li spellcheck="false">可考量關鍵:雙向/系統主動健康照顧者用戶使用狀況</li>
+            <li spellcheck="false">品牌:美國</li>
+            <li spellcheck="false"></li>
+          </ul>
+        </div>
+        <div class="card-footer" spellcheck="false"><strong>定價：待FDA審核通過</strong></div>
+      </div>
+      <div class="card">
+        <div class="card-top" style="background:var(--other)"></div><div class="photo-area"><img class="card-img" src="./images/prod_07.jpg" style="display: block;"><div class="photo-placeholder" style="display: none;"><span class="ph-icon">📷</span><span class="ph-lbl">點擊新增照片</span></div><button class="photo-change-btn" style="">📷 更換照片</button><input type="file" accept="image/*" style="display: none;"></div>
+        
+        <div class="card-body sm">
+          <h3 spellcheck="false">CleanSleep™</h3>
+          <div class="company" spellcheck="false">CleanSleep, Inc.</div>
+          <span class="fda-badge fda-none" spellcheck="false">非 FDA 認證</span>
+          <hr>
+          <ul>
+            <li spellcheck="false">全自動 CPAP 清潔機，取代手洗流程</li>
+            <li spellcheck="false">非臭氧、無毒，使用專利清潔錠</li>
+            <li spellcheck="false">不影響 CPAP 製造商保固</li>
+            <li spellcheck="false">新創公司，尋求醫療合作夥伴及投資</li>
+          </ul>
+        </div>
+        <div class="card-footer" spellcheck="false"><strong>定價：該產品製作中，預估半年後上市</strong></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 7: 其他輔助療法 ══ -->
+<div class="slide" data-title="其他輔助療法">
+  <div class="slide-header" style="border-left:8px solid var(--other)">
+    <h2 spellcheck="false">睡眠治療工具 — 其他輔助療法</h2>
+    <p spellcheck="false">Supplementary Sleep Aids &nbsp;|&nbsp; 2 項產品</p>
+  </div>
+  <div class="products-bg">
+    <div class="cards-2">
+      <div class="card">
+        <div class="card-top" style="background:var(--other)"></div><div class="photo-area"><img class="card-img" src="./images/prod_08.jpg" style="display: block;"><div class="photo-placeholder" style="display: none;"><span class="ph-icon">📷</span><span class="ph-lbl">點擊新增照片</span></div><button class="photo-change-btn" style="">📷 更換照片</button><input type="file" accept="image/*" style="display: none;"></div>
+        
+        <div class="card-body">
+          <h3 spellcheck="false">Moonbird</h3>
+          <div class="company" spellcheck="false">moonbird BVBA（比利時）</div>
+          <span class="fda-badge fda-none" spellcheck="false">非 FDA 醫療器材</span>
+          <hr>
+          <ul>
+            <li spellcheck="false">手持式觸覺呼吸引導裝置，助眠/壓力紓解</li>
+            <li spellcheck="false">裝置膨脹收縮引導呼吸節律（Wellness 定位）</li>
+            <li spellcheck="false">配對 App，電池約 3 小時，無訂閱費</li>
+            <li spellcheck="false">2025 年 EEG 研究：使用後顯著降低呼吸頻率</li>
+            <li spellcheck="false">展場手寫記錄：USD $149（特惠），原價 ~$229</li>
+          </ul>
+        </div>
+        <div class="card-footer" spellcheck="false"><strong>定價：</strong><span>USD $99 / $149</span></div>
+      </div>
+      <div class="card">
+        <div class="card-top" style="background:var(--other)"></div><div class="photo-area"><img class="card-img" src="./images/prod_09.jpg" style="display: block;"><div class="photo-placeholder" style="display: none;"><span class="ph-icon">📷</span><span class="ph-lbl">點擊新增照片</span></div><button class="photo-change-btn" style="">📷 更換照片</button><input type="file" accept="image/*" style="display: none;"></div>
+        
+        <div class="card-body">
+          <h3 spellcheck="false">Intake Magnetic Nasal Strip</h3>
+          <div class="company" spellcheck="false">Intake Breathing</div>
+          <span class="fda-badge fda-registered" spellcheck="false">FDA Registered</span>
+          <hr>
+          <ul>
+            <li spellcheck="false">磁性鼻擴張器，比傳統鼻條開鼻孔大 2 倍</li>
+            <li spellcheck="false">可重複使用磁片（4 尺碼）＋一次性黏貼片</li>
+            <li spellcheck="false">FDA 登記產品（醫療器材核准），Made in USA</li>
+            <li spellcheck="false">適合：打鼾、鼻塞、睡眠品質改善、運動</li>
+            <li spellcheck="false">消費品，可 HSA/FSA 帳戶購買</li>
+          </ul>
+        </div>
+        <div class="card-footer" spellcheck="false"><strong>定價：</strong><span>Starter Kit ~USD $30–40；黏貼片約 $1–1.5 /晚</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 8: 睡眠檢測 1/2 ══ -->
+<div class="slide" data-title="睡眠檢測（1/2）">
+  <div class="slide-header" style="border-left:8px solid var(--diag)">
+    <h2 spellcheck="false">睡眠檢測工具（1/2）</h2>
+    <p spellcheck="false">Sleep Diagnostics &nbsp;|&nbsp; WatchPAT 400 · DormoVision X</p>
+  </div>
+  <div class="products-bg">
+    <div class="cards-2">
+      <div class="card">
+        <div class="card-top" style="background:var(--diag)"></div><div class="photo-area"><img class="card-img" src="./images/prod_10.png" style="display: block;"><div class="photo-placeholder" style="display: none;"><span class="ph-icon">📷</span><span class="ph-lbl">點擊新增照片</span></div><button class="photo-change-btn" style="">📷 更換照片</button><input type="file" accept="image/*" style="display: none;"></div>
+        
+        <div class="card-body">
+          <h3 spellcheck="false">WatchPAT® 400</h3>
+          <div class="company" spellcheck="false">ZOLL Itamar</div>
+          <span class="fda-badge fda-cleared" spellcheck="false">FDA Cleared</span>
+          <hr>
+          <ul>
+            <li spellcheck="false">7 通道可重複使用居家睡眠測試（HST）</li>
+            <li spellcheck="false">可偵測 OSA、中樞型呼吸中止（CSA）及心房顫動（AFib）</li>
+            <li spellcheck="false">SleepPath™ App 整合，結果即時傳輸雲端</li>
+            <li spellcheck="false">與 PSG 相關性 89%，直覺 3 點接觸式設計</li>
+            <li spellcheck="false">另有 WatchPAT ONE（一次性）及 WatchPAT 300</li>
+          </ul>
+        </div>
+        <div class="card-footer" spellcheck="false"><strong>定價：</strong><span>B2B 機構報價（未公開）</span></div>
+      </div>
+      <div class="card">
+        <div class="card-top" style="background:var(--diag)"></div><div class="photo-area"><img class="card-img" src="./images/prod_11.png" style="display: block;"><div class="photo-placeholder" style="display: none;"><span class="ph-icon">📷</span><span class="ph-lbl">點擊新增照片</span></div><button class="photo-change-btn" style="">📷 更換照片</button><input type="file" accept="image/*" style="display: none;"></div>
+        
+        <div class="card-body">
+          <h3 spellcheck="false">DormoVision X™ Home</h3>
+          <div class="company" spellcheck="false">Dormotech Medical（以色列）</div>
+          <span class="fda-badge fda-cleared" spellcheck="false">FDA Cleared</span>
+          <hr>
+          <ul>
+            <li spellcheck="false">居家 PSG 等級：29 個直接通道，9 個衍生訊號</li>
+            <li spellcheck="false">雲端即時傳輸，睡眠技師可遠端即時監控</li>
+            <li spellcheck="false">自行佩戴，無鼻管，不需院內技師安裝</li>
+            <li spellcheck="false">適用 6 歲以上（兒童 + 成人），2024/12 獲 FDA 核准</li>
+            <li spellcheck="false">PSG 等效精度 96.6%，HIPAA 合規雲端平台</li>
+          </ul>
+        </div>
+        <div class="card-footer" spellcheck="false"><strong>定價：</strong><span>未公開（機構洽詢）</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 9: 睡眠檢測 2/2 ══ -->
+<div class="slide" data-title="睡眠檢測（2/2）">
+  <div class="slide-header" style="border-left:8px solid var(--diag)">
+    <h2 spellcheck="false">睡眠檢測工具（2/2）</h2>
+    <p spellcheck="false">Sleep Diagnostics &nbsp;|&nbsp; Wesper Lab · Z Machine Synergy</p>
+  </div>
+  <div class="products-bg">
+    <div class="cards-2">
+      <div class="card">
+        <div class="card-top" style="background:var(--diag)"></div><div class="photo-area"><img class="card-img" src="./images/prod_12.png" style="display: block;"><div class="photo-placeholder" style="display: none;"><span class="ph-icon">📷</span><span class="ph-lbl">點擊新增照片</span></div><button class="photo-change-btn" style="">📷 更換照片</button><input type="file" accept="image/*" style="display: none;"></div>
+        
+        <div class="card-body">
+          <h3 spellcheck="false">Wesper Lab</h3>
+          <div class="company" spellcheck="false">Wesper Inc.</div>
+          <span class="fda-badge fda-cleared" spellcheck="false">FDA Cleared</span>
+          <hr>
+          <ul>
+            <li spellcheck="false">無鼻管、無套管，貼片式居家睡眠測試（HST）</li>
+            <li spellcheck="false">直接測量胸腹呼吸努力＋氣流，消除鼻管干擾</li>
+            <li spellcheck="false">可偵測中樞型睡眠呼吸中止（Central Apnea）</li>
+            <li spellcheck="false">患者成功率 99%，可多夜連續測試</li>
+            <li spellcheck="false">光學偵測(類EEG)+溫度感測+respiratory pattern+position+血氧</li>
+          </ul>
+        </div>
+        <div class="card-footer" spellcheck="false"><strong>定價：</strong><span>~USD $2500 / Report $75 /次（消費者）</span></div>
+      </div>
+      <div class="card">
+        <div class="card-top" style="background:var(--diag)"></div><div class="photo-area"><img class="card-img" src="./images/prod_13.jpg" style="display: block;"><div class="photo-placeholder" style="display: none;"><span class="ph-icon">📷</span><span class="ph-lbl">點擊新增照片</span></div><button class="photo-change-btn" style="">📷 更換照片</button><input type="file" accept="image/*" style="display: none;"></div>
+        
+        <div class="card-body">
+          <h3 spellcheck="false">Z Machine® Synergy</h3>
+          <div class="company" spellcheck="false">Machine Synergy / General Sleep</div>
+          <span class="fda-badge fda-cleared" spellcheck="false">FDA Cleared</span>
+          <hr>
+          <ul>
+            <li spellcheck="false">9 通道 Type II 居家睡眠測試（HST）</li>
+            <li spellcheck="false">含 FDA 核准 EEG 睡眠自動分期（N1/N2/N3/REM）</li>
+            <li spellcheck="false">與Apnealink相似，擴充安裝更容易</li>
+            <li spellcheck="false">胸帶佩戴，自然睡姿，48 小時內提供報告</li>
+            <li spellcheck="false">HIPAA 雲端平台，支援客製化報告格式</li>
+          </ul>
+        </div>
+        <div class="card-footer" spellcheck="false"><strong>定價：</strong><span>設備 USD $2,400；沒外銷經驗，安排進一步洽談</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 10: AI + 穿戴 ══ -->
+<div class="slide" data-title="AI 平台 + 穿戴裝置">
+  <div class="slide-header" style="border-left:8px solid var(--ai)">
+    <h2 spellcheck="false">線上 AI 整合平台 · 穿戴裝置</h2>
+    <p spellcheck="false">AI Platform &amp; Wearables &nbsp;|&nbsp; 3 項產品</p>
+  </div>
+  <div class="products-bg">
+    <div class="cards-3">
+      <div class="card">
+        <div class="card-top" style="background:var(--ai)"></div><div class="photo-area"><img class="card-img" src="./images/prod_14.png" style="display: block;"><div class="photo-placeholder" style="display: none;"><span class="ph-icon">📷</span><span class="ph-lbl">點擊新增照片</span></div><button class="photo-change-btn" style="">📷 更換照片</button><input type="file" accept="image/*" style="display: none;"></div>
+        
+        <div class="card-body sm">
+          <h3 spellcheck="false">SleepImage® System</h3>
+          <div class="company" spellcheck="false">SleepImage</div>
+          <span class="fda-badge fda-cleared" spellcheck="false">FDA Cleared</span>
+          <hr>
+          <ul>
+            <li spellcheck="false">戒指式睡眠監測，成人 + 小兒（2歲+）版</li>
+            <li spellcheck="false">FDA Cleared AHI，等同 PSG 診斷精度</li>
+            <li spellcheck="false">睡眠品質指數（SQI），150萬+ 夜次資料庫</li>
+            <li spellcheck="false">訂閱制，可長期多夜追蹤，CE MDR 認證</li>
+          </ul>
+        </div>
+        <div class="card-footer" spellcheck="false"><strong>定價：</strong><span>醫療機構訂閱制</span><br><strong>聯絡：</strong><span>Kristopher J. Sabas（Sr. Director BD&amp;P）kristopher.sabas@sleepimage.com / +1 651-350-2323</span></div>
+      </div>
+      <div class="card">
+        <div class="card-top" style="background:var(--wear)"></div><div class="photo-area"><img class="card-img" src="./images/prod_15.png" style="display: block;"><div class="photo-placeholder" style="display: none;"><span class="ph-icon">📷</span><span class="ph-lbl">點擊新增照片</span></div><button class="photo-change-btn" style="">📷 更換照片</button><input type="file" accept="image/*" style="display: none;"></div>
+        
+        <div class="card-body sm">
+          <h3 spellcheck="false">Empatica Health Platform</h3>
+          <div class="company" spellcheck="false">Empatica S.r.l.（義大利）</div>
+          <span class="fda-badge fda-cleared" spellcheck="false">FDA Cleared</span>
+          <hr>
+          <ul>
+            <li spellcheck="false">FDA Cleared 生理監測平台（EmbracePlus）</li>
+            <li spellcheck="false">連續性監測生理數據和睡眠包含:Spa02，皮膚溫度，睡眠檢測，脈搏，呼吸頻率等</li>
+            <li spellcheck="false"></li>
+            <li spellcheck="false">CE MDR + ISO 認證，FDA 合規</li>
+          </ul>
+        </div>
+        <div class="card-footer" spellcheck="false"><strong>定價：</strong><span>企業 / 臨床試驗定價（未公開）</span></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 12: PRIORITY TABLE ══ -->
+<div class="slide" data-title="引進優先順序評估">
+  <div class="slide-header">
+    <h2 spellcheck="false">引進優先順序評估</h2>
+    <p spellcheck="false">可依需求調整排序 &nbsp;·&nbsp; 共 19 項產品評估</p>
+  </div>
+  <div class="table-wrap">
+    <table class="priority">
+      <thead>
+        <tr>
+          <th style="width:22%" spellcheck="false">品牌 / 產品</th>
+          <th style="width:14%" spellcheck="false">類別</th>
+          <th style="width:19%" spellcheck="false">FDA 狀態</th>
+          <th style="width:22%" spellcheck="false">定價概況</th>
+          <th style="width:23%" spellcheck="false">引進優先順序</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="p3"><td spellcheck="false">Wesper Lab</td><td spellcheck="false">睡眠檢測</td><td spellcheck="false">FDA Cleared</td><td spellcheck="false">~$180/次（保險給付）</td><td class="priority-label" spellcheck="false">★★★ 高優先　積極洽談</td></tr>
+        <tr class="p3"><td spellcheck="false">SleepImage</td><td spellcheck="false">AI 整合平台</td><td spellcheck="false">FDA Cleared</td><td spellcheck="false">訂閱制（洽詢）</td><td class="priority-label" spellcheck="false">★★★ 高優先　積極洽談</td></tr>
+        <tr class="p3"><td spellcheck="false">eXciteOSA</td><td spellcheck="false">非侵入式神經電刺激</td><td spellcheck="false">FDA Cleared</td><td spellcheck="false">$1,650 + $150/季</td><td class="priority-label" spellcheck="false">★★★ 高優先　積極洽談</td></tr>
+        <tr class="p2"><td spellcheck="false">Daybreak MAD</td><td spellcheck="false">口腔裝置</td><td spellcheck="false">FDA Cleared</td><td spellcheck="false">保險給付 / ~$995 自費</td><td class="priority-label" spellcheck="false">★★ 中優先　深入評估</td></tr>
+        <tr class="p2"><td spellcheck="false">Z Machine Synergy</td><td spellcheck="false">睡眠檢測</td><td spellcheck="false">FDA Cleared</td><td spellcheck="false">設備 $450–$1,299</td><td class="priority-label" spellcheck="false">★★ 中優先　深入評估</td></tr>
+        <tr class="p2"><td spellcheck="false">Neurovalens Modius Sleep</td><td spellcheck="false">神經電刺激（失眠）</td><td spellcheck="false">FDA Cleared (2023/10)</td><td spellcheck="false">$1,185</td><td class="priority-label" spellcheck="false">★★ 中優先　深入評估</td></tr>
+        <tr class="p2"><td spellcheck="false">Dormotech DormoVision X</td><td spellcheck="false">睡眠檢測（PSG 等級）</td><td spellcheck="false">FDA Cleared (2024/12)</td><td spellcheck="false">未公開</td><td class="priority-label" spellcheck="false">★★ 中優先　深入評估</td></tr>
+        <tr class="p1"><td spellcheck="false">GoodSleepco Hushd</td><td spellcheck="false">口腔裝置</td><td spellcheck="false">FDA Cleared</td><td spellcheck="false">OTC $129；Pro 未公開</td><td class="priority-label" spellcheck="false">★ 低優先　持續觀察</td></tr>
+        <tr class="p1"><td spellcheck="false">WatchPAT 400</td><td spellcheck="false">睡眠檢測</td><td spellcheck="false">FDA Cleared</td><td spellcheck="false">B2B 洽詢</td><td class="priority-label" spellcheck="false">★ 低優先　持續觀察</td></tr>
+        <tr class="p1"><td spellcheck="false">Empatica EmbracePlus</td><td spellcheck="false">穿戴裝置（臨床試驗）</td><td spellcheck="false">FDA Cleared</td><td spellcheck="false">企業洽詢</td><td class="priority-label" spellcheck="false">★ 低優先　持續觀察</td></tr>
+        <tr class="p0"><td spellcheck="false">Inspire Medical Systems</td><td spellcheck="false">植入式 HNS</td><td spellcheck="false">FDA Approved (2014)</td><td spellcheck="false">~$30,000–$40,000</td><td class="priority-label" spellcheck="false">— 暫不建議引進</td></tr>
+        <tr class="p0"><td spellcheck="false">Nyxoah Genio</td><td spellcheck="false">植入式 HNS</td><td spellcheck="false">FDA Approved (2025/8)</td><td spellcheck="false">未公開</td><td class="priority-label" spellcheck="false">— 暫不建議引進</td></tr>
+        <tr class="p0"><td spellcheck="false">LivaNova aura6000</td><td spellcheck="false">植入式 HNS</td><td spellcheck="false">FDA Approved (2026/3)</td><td spellcheck="false">未公開</td><td class="priority-label" spellcheck="false">— 暫不建議引進</td></tr>
+        <tr class="p0"><td spellcheck="false">Sleepnet Select</td><td spellcheck="false">面罩供應</td><td spellcheck="false">FDA Cleared（面罩）</td><td spellcheck="false">B2B 洽詢</td><td class="priority-label" spellcheck="false">— 暫不建議引進</td></tr>
+        <tr class="p0"><td spellcheck="false">Moonbird</td><td spellcheck="false">其他（Wellness）</td><td spellcheck="false">非 FDA 醫療器材</td><td spellcheck="false">$149–$229</td><td class="priority-label" spellcheck="false">— 暫不建議引進</td></tr>
+        <tr class="p0"><td spellcheck="false">Intake Nasal Strip</td><td spellcheck="false">其他（消費品）</td><td spellcheck="false">FDA Registered</td><td spellcheck="false">$30–40 + $1.5/晚</td><td class="priority-label" spellcheck="false">— 暫不建議引進</td></tr>
+        <tr class="p0"><td spellcheck="false">CleanSleep</td><td spellcheck="false">CPAP 清潔</td><td style="color:var(--red);font-weight:700" spellcheck="false">非 FDA 認證</td><td spellcheck="false">~$450–$500</td><td class="priority-label" spellcheck="false">— 暫不建議引進</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="legend">
+    <span style="font-weight:700;font-size:9px;color:var(--text)">圖例：</span>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--green-lt);border-color:var(--green)"></div><span spellcheck="false">★★★ 高優先：積極洽談</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--blue-lt);border-color:var(--blue)"></div><span spellcheck="false">★★ 中優先：深入評估</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:white;border-color:var(--amber)"></div><span spellcheck="false">★ 低優先：持續觀察</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--gray1);border-color:var(--gray3)"></div><span spellcheck="false">— 暫不建議引進</span></div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 13: CONCLUSION ══ -->
+<div class="slide conclusion" data-title="結語與後續行動">
+  <div class="accent-bar"></div>
+  <div class="circle2"></div>
+  <h2 spellcheck="false">結語與後續行動建議</h2>
+  <div class="divider"></div>
+  <div class="action-rows">
+    <div class="action-row">
+      <div class="action-bar" style="background:var(--green)"></div>
+      <div>
+        <div class="action-label" spellcheck="false">高優先 — 積極洽談</div>
+        <div class="action-val" spellcheck="false">Inspire、Nyxoah Genio、Wesper Lab、Z Machine Synergy、eXciteOSA、<span style="color: rgb(71, 85, 105); font-size: 9.5px; font-style: italic;">Intake&nbsp;</span></div>
+      </div>
+    </div>
+    <div class="action-row">
+      <div class="action-bar" style="background:var(--blue)"></div>
+      <div>
+        <div class="action-label" spellcheck="false">中優先 — 深入評估</div>
+        <div class="action-val" spellcheck="false">WatchPAT 400、Daybreak、、Neurovalens Modius Sleep、Dormotech DormoVision X、SleepImage</div>
+      </div>
+    </div>
+    <div class="action-row">
+      <div class="action-bar" style="background:var(--amber)"></div>
+      <div>
+        <div class="action-label" spellcheck="false">低優先 — 持續觀察</div>
+        <div class="action-val" spellcheck="false">GoodSleepco Hushd、Empatica EmbracePlus</div>
+      </div>
+    </div>
+    <div class="action-row">
+      <div class="action-bar" style="background:var(--gray3)"></div>
+      <div>
+        <div class="action-label" spellcheck="false">植入式裝置 — 觀察期</div>
+        <div class="action-val" spellcheck="false">LivaNova aura6000（2025–26 年新核准，待觀察台灣市場時機）</div>
+      </div>
+    </div>
+  </div>
+  <div class="follow-up">
+    <h4 spellcheck="false">後續行動</h4>
+    <p spellcheck="false"></p>
+    <p style="margin-top:6px" spellcheck="false"></p>
+    <p style="margin-top:6px;color:#94A3B8" spellcheck="false">後續行動：各高/中優先產品之台灣代理意願 · 報價單 · 試用 / 展示機洽詢</p>
+  </div>
+</div>
+
+<div class="nav-hint" style="padding:16px" spellcheck="false">科林儀器股份有限公司 &nbsp;|&nbsp; 2026 AASM 展覽參展後產品彙報 &nbsp;|&nbsp; 2026-06-21 &nbsp;|&nbsp; 共 13 頁</div>
+
+
+
+
+
+</body></html>
