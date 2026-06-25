@@ -493,6 +493,18 @@
 }
 </style>
 
+
+<style id="product-eval-and-extra-images">
+.photo-area.dual-photo{display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important;align-items:stretch!important}
+.photo-area.dual-photo img{width:100%!important;height:100%!important;object-fit:contain!important;background:#EEF2F7!important;border-radius:8px!important;padding:4px!important}
+.eval-checklist{margin:8px 0 0!important;padding:8px 10px!important;border-top:1px solid #E2E8F0!important;background:#F8FAFC!important}
+.eval-title{font-size:10px!important;font-weight:900!important;color:#0D2137!important;margin-bottom:5px!important}
+.eval-options{display:flex!important;flex-wrap:wrap!important;gap:6px!important}
+.eval-option{display:inline-flex!important;align-items:center!important;gap:4px!important;font-size:9.5px!important;color:#334155!important;background:#fff!important;border:1px solid #CBD5E1!important;border-radius:999px!important;padding:4px 7px!important;line-height:1.2!important}
+.eval-option input{width:12px!important;height:12px!important;accent-color:#2563EB!important}
+@media(max-width:768px){.photo-area.dual-photo{grid-template-columns:1fr!important}.eval-options{display:grid!important;grid-template-columns:1fr!important}.eval-option{font-size:12px!important;border-radius:10px!important;padding:7px 9px!important}}
+</style>
+
 </head><body><script>// Mobile nav bar controller
 (function(){
   function init(){
@@ -788,6 +800,14 @@
           </ul>
         </div>
         <div class="card-footer" spellcheck="false"><strong>定價：手術</strong><span>費用約 USD $30,000–$40,000</span><div><font color="#475569">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(台灣預估200萬~250萬)<br></font><strong>🔑 展會突破：</strong><span>Andreas Henke（Vice President）— 首次取得關鍵決策人聯絡，優先跟進</span></div></div>
+        <div class="eval-checklist">
+          <div class="eval-title" spellcheck="false">評估要件：</div>
+          <div class="eval-options">
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Inspire_UAS" data-item="b2b_selfpay">擴增 TO B 自費</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Inspire_UAS" data-item="lower_cost">同規格更低成本可能性</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Inspire_UAS" data-item="sleep_services">多元睡眠服務</label>
+          </div>
+        </div>
       </div>
       <div class="card">
         <div class="card-top" style="background:var(--implant)"></div><div class="photo-area"><img class="card-img" src="./images/prod_02.jpg" style="display: block;"><div class="photo-placeholder" style="display: none;"><span class="ph-icon">📷</span><span class="ph-lbl">點擊新增照片</span></div><button class="photo-change-btn" style="">📷 更換照片</button><input type="file" accept="image/*" style="display: none;"></div>
@@ -805,10 +825,17 @@
           </ul>
         </div>
         <div class="card-footer" spellcheck="false"><strong>定價：</strong><span>未公開（機構洽詢，表示與Inspire差不多）</span><br><strong>聯絡：</strong><span>Loïc Moreau（President International）— LinkedIn 已連結</span></div>
+        <div class="eval-checklist">
+          <div class="eval-title" spellcheck="false">評估要件：</div>
+          <div class="eval-options">
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Genio_HGNS" data-item="b2b_selfpay">擴增 TO B 自費</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Genio_HGNS" data-item="lower_cost">同規格更低成本可能性</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Genio_HGNS" data-item="sleep_services">多元睡眠服務</label>
+          </div>
+        </div>
       </div>
       <div class="card">
-        <div class="card-top" style="background:var(--implant)"></div><div class="photo-area"><img class="card-img-sm" src="./睡眠治療工具/植入式電刺激/LivaNova-01.jpg" alt="LivaNova aura6000" onerror="this.style.display='none'" style="display: none;"><div class="photo-placeholder" style="display: flex;"><span class="ph-icon">📷</span><span class="ph-lbl">點擊新增照片</span></div><button class="photo-change-btn" style="display: none;">📷 更換照片</button><input type="file" accept="image/*" style="display: none;"></div>
-        
+        <div class="card-top" style="background:var(--implant)"></div><div class="photo-area"><img class="card-img" src="images/livaNova_aura6000.png" alt="aura6000 pHGNS" style="display:block;"></div>
         <div class="card-body sm">
           <h3 spellcheck="false">aura6000™ pHGNS</h3>
           <div class="company" spellcheck="false">LivaNova PLC</div>
@@ -822,6 +849,14 @@
           </ul>
         </div>
         <div class="card-footer" spellcheck="false"><strong>定價：</strong><span>未公開（機構洽詢</span><span style="color: rgb(71, 85, 105);">，表示與Inspire差不多</span><span>）</span></div>
+        <div class="eval-checklist">
+          <div class="eval-title" spellcheck="false">評估要件：</div>
+          <div class="eval-options">
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="aura6000_pHGNS" data-item="b2b_selfpay">擴增 TO B 自費</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="aura6000_pHGNS" data-item="lower_cost">同規格更低成本可能性</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="aura6000_pHGNS" data-item="sleep_services">多元睡眠服務</label>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -851,6 +886,14 @@
           </ul>
         </div>
         <div class="card-footer" spellcheck="false"><strong>定價：</strong><span>USD $1,650（裝置）＋ $150 / 3 個月（耗材）</span><br><strong>聯絡：</strong><span>Jay Cranston（行銷）jay.c@signifiermedical.com ｜ Cammie Osborne（臨床研究）cammie.o@signifiermedical.com ｜ Michael Shea（Spring Sleep 經銷）michael@springsleep.com ｜ <em>原廠轉介亞洲區負責人中</em></span></div>
+        <div class="eval-checklist">
+          <div class="eval-title" spellcheck="false">評估要件：</div>
+          <div class="eval-options">
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="eXciteOSA" data-item="b2b_selfpay">擴增 TO B 自費</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="eXciteOSA" data-item="lower_cost">同規格更低成本可能性</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="eXciteOSA" data-item="sleep_services">多元睡眠服務</label>
+          </div>
+        </div>
       </div>
       <div class="card">
         <div class="card-top" style="background:var(--neuro)"></div><div class="photo-area"><img class="card-img" src="./images/prod_04.jpg" style="display: block;"><div class="photo-placeholder" style="display: none;"><span class="ph-icon">📷</span><span class="ph-lbl">點擊新增照片</span></div><button class="photo-change-btn" style="">📷 更換照片</button><input type="file" accept="image/*" style="display: none;"></div>
@@ -869,6 +912,14 @@
           </ul>
         </div>
         <div class="card-footer" spellcheck="false"><strong>定價：</strong><span>USD $2,300</span></div>
+        <div class="eval-checklist">
+          <div class="eval-title" spellcheck="false">評估要件：</div>
+          <div class="eval-options">
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Modius_Sleep" data-item="b2b_selfpay">擴增 TO B 自費</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Modius_Sleep" data-item="lower_cost">同規格更低成本可能性</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Modius_Sleep" data-item="sleep_services">多元睡眠服務</label>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -900,6 +951,14 @@
           </ul>
         </div>
         <div class="card-footer" spellcheck="false"><strong>定價：</strong><span>保險給付；自費約 USD $2,300（非保險給付項目）</span></div>
+        <div class="eval-checklist">
+          <div class="eval-title" spellcheck="false">評估要件：</div>
+          <div class="eval-options">
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Daybreak_MAD" data-item="b2b_selfpay">擴增 TO B 自費</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Daybreak_MAD" data-item="lower_cost">同規格更低成本可能性</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Daybreak_MAD" data-item="sleep_services">多元睡眠服務</label>
+          </div>
+        </div>
       </div>
       <div class="card">
         <div class="card-top" style="background:var(--oral)"></div><div class="photo-area"><img class="card-img" src="./images/prod_06.png" style="display: block;"><div class="photo-placeholder" style="display: none;"><span class="ph-icon">📷</span><span class="ph-lbl">點擊新增照片</span></div><button class="photo-change-btn" style="">📷 更換照片</button><input type="file" accept="image/*" style="display: none;"></div>
@@ -926,6 +985,14 @@
           </ul>
         </div>
         <div class="card-footer" spellcheck="false"><strong>定價：未提供</strong><div><strong style="color: rgb(30, 41, 59);">聯絡：Kyle Eden負責亞洲區&nbsp; kyle.eden@goodsleepco.health</strong><strong></strong></div></div>
+        <div class="eval-checklist">
+          <div class="eval-title" spellcheck="false">評估要件：</div>
+          <div class="eval-options">
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Hushd_Pro_Hushd_Avera" data-item="b2b_selfpay">擴增 TO B 自費</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Hushd_Pro_Hushd_Avera" data-item="lower_cost">同規格更低成本可能性</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Hushd_Pro_Hushd_Avera" data-item="sleep_services">多元睡眠服務</label>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -956,10 +1023,17 @@
           </ul>
         </div>
         <div class="card-footer" spellcheck="false"><strong>定價：待FDA審核通過</strong></div>
+        <div class="eval-checklist">
+          <div class="eval-title" spellcheck="false">評估要件：</div>
+          <div class="eval-options">
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Sleepnet_Select" data-item="b2b_selfpay">擴增 TO B 自費</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Sleepnet_Select" data-item="lower_cost">同規格更低成本可能性</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Sleepnet_Select" data-item="sleep_services">多元睡眠服務</label>
+          </div>
+        </div>
       </div>
       <div class="card">
-        <div class="card-top" style="background:var(--other)"></div><div class="photo-area"><img class="card-img" src="./images/prod_07.jpg" style="display: block;"><div class="photo-placeholder" style="display: none;"><span class="ph-icon">📷</span><span class="ph-lbl">點擊新增照片</span></div><button class="photo-change-btn" style="">📷 更換照片</button><input type="file" accept="image/*" style="display: none;"></div>
-        
+        <div class="card-top" style="background:var(--other)"></div><div class="photo-area dual-photo"><img class="card-img" src="./images/prod_07.jpg" alt="CleanSleep 原產品圖" style="display:block;"><img class="card-img" src="images/cleansleep_2.png" alt="CleanSleep™-2" style="display:block;"></div>
         <div class="card-body sm">
           <h3 spellcheck="false">CleanSleep™</h3>
           <div class="company" spellcheck="false">CleanSleep, Inc.</div>
@@ -973,6 +1047,14 @@
           </ul>
         </div>
         <div class="card-footer" spellcheck="false"><strong>定價：該產品製作中，預估半年後上市</strong></div>
+        <div class="eval-checklist">
+          <div class="eval-title" spellcheck="false">評估要件：</div>
+          <div class="eval-options">
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="CleanSleep" data-item="b2b_selfpay">擴增 TO B 自費</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="CleanSleep" data-item="lower_cost">同規格更低成本可能性</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="CleanSleep" data-item="sleep_services">多元睡眠服務</label>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1003,6 +1085,14 @@
           </ul>
         </div>
         <div class="card-footer" spellcheck="false"><strong>定價：</strong><span>USD $99 / $149</span></div>
+        <div class="eval-checklist">
+          <div class="eval-title" spellcheck="false">評估要件：</div>
+          <div class="eval-options">
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Moonbird" data-item="b2b_selfpay">擴增 TO B 自費</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Moonbird" data-item="lower_cost">同規格更低成本可能性</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Moonbird" data-item="sleep_services">多元睡眠服務</label>
+          </div>
+        </div>
       </div>
       <div class="card">
         <div class="card-top" style="background:var(--other)"></div><div class="photo-area"><img class="card-img" src="./images/prod_09.jpg" style="display: block;"><div class="photo-placeholder" style="display: none;"><span class="ph-icon">📷</span><span class="ph-lbl">點擊新增照片</span></div><button class="photo-change-btn" style="">📷 更換照片</button><input type="file" accept="image/*" style="display: none;"></div>
@@ -1021,6 +1111,14 @@
           </ul>
         </div>
         <div class="card-footer" spellcheck="false"><strong>定價：</strong><span>Starter Kit ~USD $30–40；黏貼片約 $1–1.5 /晚</span></div>
+        <div class="eval-checklist">
+          <div class="eval-title" spellcheck="false">評估要件：</div>
+          <div class="eval-options">
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Intake_Magnetic_Nasal_Strip" data-item="b2b_selfpay">擴增 TO B 自費</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Intake_Magnetic_Nasal_Strip" data-item="lower_cost">同規格更低成本可能性</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Intake_Magnetic_Nasal_Strip" data-item="sleep_services">多元睡眠服務</label>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1051,6 +1149,14 @@
           </ul>
         </div>
         <div class="card-footer" spellcheck="false"><strong>定價：</strong><span>B2B 機構報價（未公開）</span></div>
+        <div class="eval-checklist">
+          <div class="eval-title" spellcheck="false">評估要件：</div>
+          <div class="eval-options">
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="WatchPAT_400" data-item="b2b_selfpay">擴增 TO B 自費</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="WatchPAT_400" data-item="lower_cost">同規格更低成本可能性</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="WatchPAT_400" data-item="sleep_services">多元睡眠服務</label>
+          </div>
+        </div>
       </div>
       <div class="card">
         <div class="card-top" style="background:var(--diag)"></div><div class="photo-area"><img class="card-img" src="./images/prod_11.png" style="display: block;"><div class="photo-placeholder" style="display: none;"><span class="ph-icon">📷</span><span class="ph-lbl">點擊新增照片</span></div><button class="photo-change-btn" style="">📷 更換照片</button><input type="file" accept="image/*" style="display: none;"></div>
@@ -1069,6 +1175,14 @@
           </ul>
         </div>
         <div class="card-footer" spellcheck="false"><strong>定價：</strong><span>未公開（機構洽詢）</span></div>
+        <div class="eval-checklist">
+          <div class="eval-title" spellcheck="false">評估要件：</div>
+          <div class="eval-options">
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="DormoVision_X_Home" data-item="b2b_selfpay">擴增 TO B 自費</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="DormoVision_X_Home" data-item="lower_cost">同規格更低成本可能性</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="DormoVision_X_Home" data-item="sleep_services">多元睡眠服務</label>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1099,6 +1213,14 @@
           </ul>
         </div>
         <div class="card-footer" spellcheck="false"><strong>定價：</strong><span>~USD $2500 / Report $75 /次（消費者）</span></div>
+        <div class="eval-checklist">
+          <div class="eval-title" spellcheck="false">評估要件：</div>
+          <div class="eval-options">
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Wesper_Lab" data-item="b2b_selfpay">擴增 TO B 自費</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Wesper_Lab" data-item="lower_cost">同規格更低成本可能性</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Wesper_Lab" data-item="sleep_services">多元睡眠服務</label>
+          </div>
+        </div>
       </div>
       <div class="card">
         <div class="card-top" style="background:var(--diag)"></div><div class="photo-area"><img class="card-img" src="./images/prod_13.jpg" style="display: block;"><div class="photo-placeholder" style="display: none;"><span class="ph-icon">📷</span><span class="ph-lbl">點擊新增照片</span></div><button class="photo-change-btn" style="">📷 更換照片</button><input type="file" accept="image/*" style="display: none;"></div>
@@ -1117,6 +1239,14 @@
           </ul>
         </div>
         <div class="card-footer" spellcheck="false"><strong>定價：</strong><span>設備 USD $2,400；沒外銷經驗，安排進一步洽談</span></div>
+        <div class="eval-checklist">
+          <div class="eval-title" spellcheck="false">評估要件：</div>
+          <div class="eval-options">
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Z_Machine_Synergy" data-item="b2b_selfpay">擴增 TO B 自費</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Z_Machine_Synergy" data-item="lower_cost">同規格更低成本可能性</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Z_Machine_Synergy" data-item="sleep_services">多元睡眠服務</label>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1146,10 +1276,17 @@
           </ul>
         </div>
         <div class="card-footer" spellcheck="false"><strong>定價：</strong><span>醫療機構訂閱制</span><br><strong>聯絡：</strong><span>Kristopher J. Sabas（Sr. Director BD&amp;P）kristopher.sabas@sleepimage.com / +1 651-350-2323</span></div>
+        <div class="eval-checklist">
+          <div class="eval-title" spellcheck="false">評估要件：</div>
+          <div class="eval-options">
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="SleepImage_System" data-item="b2b_selfpay">擴增 TO B 自費</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="SleepImage_System" data-item="lower_cost">同規格更低成本可能性</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="SleepImage_System" data-item="sleep_services">多元睡眠服務</label>
+          </div>
+        </div>
       </div>
       <div class="card">
-        <div class="card-top" style="background:var(--wear)"></div><div class="photo-area"><img class="card-img" src="./images/prod_15.png" style="display: block;"><div class="photo-placeholder" style="display: none;"><span class="ph-icon">📷</span><span class="ph-lbl">點擊新增照片</span></div><button class="photo-change-btn" style="">📷 更換照片</button><input type="file" accept="image/*" style="display: none;"></div>
-        
+        <div class="card-top" style="background:var(--wear)"></div><div class="photo-area dual-photo"><img class="card-img" src="images/livaNova_aura6000.png" alt="CleanSleep 原產品圖" style="display:block;"><img class="card-img" src="images/cleansleep_2.png" alt="CleanSleep™-2" style="display:block;"></div>
         <div class="card-body sm">
           <h3 spellcheck="false">Empatica Health Platform</h3>
           <div class="company" spellcheck="false">Empatica S.r.l.（義大利）</div>
@@ -1250,6 +1387,14 @@
       <div>
         <div class="action-label" spellcheck="false">植入式裝置 — 觀察期</div>
         <div class="action-val" spellcheck="false">LivaNova aura6000（2025–26 年新核准，待觀察台灣市場時機）</div>
+        <div class="eval-checklist">
+          <div class="eval-title" spellcheck="false">評估要件：</div>
+          <div class="eval-options">
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Empatica_Health_Platform" data-item="b2b_selfpay">擴增 TO B 自費</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Empatica_Health_Platform" data-item="lower_cost">同規格更低成本可能性</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Empatica_Health_Platform" data-item="sleep_services">多元睡眠服務</label>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1266,5 +1411,19 @@
 
 
 
+
+
+<script id="product-eval-checkbox-script">
+(function(){
+  function init(){
+    document.querySelectorAll('.eval-check').forEach(function(cb){
+      var key='aasm_eval_'+(cb.dataset.product||'')+'_'+(cb.dataset.item||'');
+      if(localStorage.getItem(key)==='1') cb.checked=true;
+      cb.addEventListener('change',function(){localStorage.setItem(key,cb.checked?'1':'0')});
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+})();
+</script>
 
 </body></html>
