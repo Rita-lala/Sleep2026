@@ -344,6 +344,71 @@
 .eval-option:has(input:checked),.eval-option.checked{background:#DBEAFE!important;border-color:#2563EB!important;color:#0D2137!important;font-size:11px!important;font-weight:900!important;box-shadow:0 0 0 2px rgba(37,99,235,.14)!important;transform:scale(1.03)!important}
 @media(max-width:768px){.eval-options{display:grid!important;grid-template-columns:1fr!important}.eval-option{font-size:12px!important;border-radius:10px!important;padding:8px 10px!important}.eval-option:has(input:checked),.eval-option.checked{font-size:14px!important;transform:scale(1.01)!important}}
 </style>
+
+<style id="hns-structure-three-column-fix">
+.slide[data-title="植入式電刺激"] .hns-card-grid{
+  display:grid !important;
+  grid-template-columns:repeat(3, minmax(0, 1fr)) !important;
+  gap:18px !important;
+  align-items:stretch !important;
+}
+.slide[data-title="植入式電刺激"] .hns-card-grid > .card{
+  width:100% !important;
+  max-width:none !important;
+  min-width:0 !important;
+  display:flex !important;
+  flex-direction:column !important;
+  height:auto !important;
+}
+.slide[data-title="植入式電刺激"] .photo-area{
+  height:170px !important;
+  min-height:170px !important;
+}
+.slide[data-title="植入式電刺激"] .card-img,
+.slide[data-title="植入式電刺激"] .card-img-sm{
+  width:100% !important;
+  height:100% !important;
+  object-fit:contain !important;
+  display:block !important;
+}
+.slide[data-title="植入式電刺激"] .photo-placeholder{
+  display:none !important;
+}
+.slide[data-title="植入式電刺激"] .card-body{flex:1 1 auto !important}
+@media(max-width:900px){
+  .slide[data-title="植入式電刺激"] .hns-card-grid{
+    grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+@media(max-width:640px){
+  .slide[data-title="植入式電刺激"] .hns-card-grid{
+    grid-template-columns:1fr !important;
+  }
+  .slide[data-title="植入式電刺激"] .photo-area{height:220px !important}
+}
+</style>
+
+
+<style id="extra-product-image-fix">
+.photo-area.dual-photo{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:8px!important;
+  align-items:stretch!important;
+}
+.photo-area.dual-photo img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+  background:#EEF2F7!important;
+  border-radius:8px!important;
+  padding:4px!important;
+}
+@media(max-width:768px){
+  .photo-area.dual-photo{grid-template-columns:1fr!important}
+}
+</style>
+
 </head><body><script>// Mobile nav bar controller
 (function(){
   function init(){
@@ -604,16 +669,7 @@
     <div class="cat-row"><div class="cat-dot" style="background:var(--implant)"></div><div class="cat-name" spellcheck="false">植入式電刺激</div><div class="cat-prods" spellcheck="false">Inspire、Nyxoah Genio、LivaNova aura6000</div><div class="cat-badge" style="background:var(--implant)">3</div></div>
     <div class="cat-row"><div class="cat-dot" style="background:var(--diag)"></div><div class="cat-name" spellcheck="false">睡眠檢測工具</div><div class="cat-prods" spellcheck="false">WatchPAT 400、Dormotech、Wesper Lab、Z Machine</div><div class="cat-badge" style="background:var(--diag)">4</div></div>
     <div class="cat-row"><div class="cat-dot" style="background:var(--neuro)"></div><div class="cat-name" spellcheck="false">非侵入式神經電刺激</div><div class="cat-prods" spellcheck="false">eXciteOSA、Neurovalens Modius Sleep</div><div class="cat-badge" style="background:var(--neuro)">2</div></div>
-    <div class="cat-row"><div class="cat-dot" style="background:var(--ai)"></div><div class="cat-name" spellcheck="false">線上 AI 整合平台</div><div class="cat-prods" spellcheck="false">SleepImage</div><div class="cat-badge" style="background:var(--ai)">1</div></div>
-    <div class="cat-row"><div class="cat-dot" style="background:var(--oral)"></div><div class="cat-name" spellcheck="false">口腔裝置（牙套）</div><div class="cat-prods" spellcheck="false">Daybreak、GoodSleepco Hushd</div><div class="cat-badge" style="background:var(--oral)">2</div></div>
-    <div class="cat-row"><div class="cat-dot" style="background:var(--wear)"></div><div class="cat-name" spellcheck="false">穿戴裝置</div><div class="cat-prods" spellcheck="false">Empatica EmbracePlus</div><div class="cat-badge" style="background:var(--wear)">1</div></div>
-    <div class="cat-row"><div class="cat-dot" style="background:var(--pap)"></div><div class="cat-name" spellcheck="false">呼吸器 + 清潔</div><div class="cat-prods" spellcheck="false">Sleepnet、CleanSleep</div><div class="cat-badge" style="background:var(--pap)">2</div></div>
-    <div class="cat-row"><div class="cat-dot" style="background:var(--other)"></div><div class="cat-name" spellcheck="false">其他睡眠輔助</div><div class="cat-prods" spellcheck="false">Moonbird、Intake Magnetic Nasal Strip</div><div class="cat-badge" style="background:var(--other)">2</div></div>
-  </div>
-</div>
-
-<!-- ══ SLIDE 3: 植入式電刺激 ══ -->
-<div class="slide" data-title="植入式電刺激">
+    <div class="cat-row"><div class="cat-dot" style="background:var(--ai)"></div><div class="cat-name" spellcheck="false">線上 AI 整合平台</div><div class="cat-prods" spellcheck="false">SleepI<div class="slide" data-title="植入式電刺激">
   <div class="slide-header" style="border-left:8px solid var(--implant)">
     <h2 spellcheck="false">睡眠治療工具 — 植入式電刺激（HNS）</h2>
     <p spellcheck="false">Implantable Hypoglossal Nerve Stimulation &nbsp;|&nbsp; 3 項產品</p>
@@ -623,8 +679,8 @@
     </p>
   </div>
   <div class="products-bg">
-    <div class="cards-3">
-      <div class="card">
+    <div class="cards-3 hns-card-grid">
+<div class="card">
         <div class="card-top" style="background:var(--implant)"></div><div class="photo-area"><img class="card-img" src="./images/prod_01.png" style="display: block;"><div class="photo-placeholder" style="display: none;"><span class="ph-icon">📷</span><span class="ph-lbl">點擊新增照片</span></div></div>
         <div class="card-body sm">
           <h3 spellcheck="false">Inspire UAS</h3>
@@ -647,7 +703,7 @@
             <label class="eval-option"><input class="eval-check" type="checkbox" data-product="Inspire_UAS" data-item="observe">持續觀察</label>
           </div>
         </div></div>
-      <div class="card">
+<div class="card">
         <div class="card-top" style="background:var(--implant)"></div><div class="photo-area"><img class="card-img" src="./images/prod_02.jpg" style="display: block;"><div class="photo-placeholder" style="display: none;"><span class="ph-icon">📷</span><span class="ph-lbl">點擊新增照片</span></div></div>
         
         <div class="card-body sm">
@@ -674,7 +730,7 @@
           </div>
         </div>
       <div class="card">
-        <div class="card-top" style="background:var(--implant)"></div><div class="photo-area"><img class="card-img" src="images/livaNova_aura6000.png" alt="aura6000 pHGNS" style="display:block;"></div>
+        <div class="card-top" style="background:var(--implant)"></div><div class="photo-area"><img class="card-img" src="images/aura6000_phgns.jpg" alt="aura6000™ pHGNS" style="display:block;"></div>
         <div class="card-body sm">
           <h3 spellcheck="false">aura6000™ pHGNS</h3>
           <div class="company" spellcheck="false">LivaNova PLC</div>
@@ -685,6 +741,52 @@
             <li spellcheck="false">適應症：AHI 15–65，含 CCC 患者</li>
             <li spellcheck="false">可程式化個人化治療，擴大適用族群</li>
             <li spellcheck="false"><strong>2026 年 3 月獲 FDA PMA 核准（最新）</strong></li>
+          </ul>
+        </div>
+        <div class="card-footer" spellcheck="false"><strong>定價：</strong><span>未公開（機構洽詢</span><span style="color: rgb(71, 85, 105);">，表示與Inspire差不多</span><span>）</span></div>
+        <div class="eval-checklist">
+          <div class="eval-title" spellcheck="false">評估要件：</div>
+          <div class="eval-options">
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="aura6000_pHGNS" data-item="b2b_selfpay">擴增 TO B 自費</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="aura6000_pHGNS" data-item="lower_cost">同規格更低成本可能性</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="aura6000_pHGNS" data-item="sleep_services">多元睡眠服務</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="aura6000_pHGNS" data-item="expanded_services">擴增服務產品線</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="aura6000_pHGNS" data-item="observe">持續觀察</label>
+          </div>
+        </div>
+      </div>
+    </div>
+<div class="card">
+        <div class="card-top" style="background:var(--implant)"></div><div class="photo-area"><img class="card-img" src="images/aura6000_phgns.jpg" alt="aura6000™ pHGNS" style="display:block;"></div>
+        <div class="card-body sm">
+          <h3 spellcheck="false">aura6000™ pHGNS</h3>
+          <div class="company" spellcheck="false">LivaNova PLC</div>
+          <span class="fda-badge fda-approved" spellcheck="false">FDA Approved</span>
+          <hr>
+          <ul>
+            <li spellcheck="false">近端舌下神經刺激，6 個獨立控制電極</li>
+            <li spellcheck="false">適應症：AHI 15–65，含 CCC 患者</li>
+            <li spellcheck="false">可程式化個人化治療，擴大適用族群</li>
+            <li spellcheck="false"><strong>2026 年 3 月獲 FDA PMA 核准（最新）</strong></li>
+          </ul>
+        </div>
+        <div class="card-footer" spellcheck="false"><strong>定價：</strong><span>未公開（機構洽詢</span><span style="color: rgb(71, 85, 105);">，表示與Inspire差不多</span><span>）</span></div>
+        <div class="eval-checklist">
+          <div class="eval-title" spellcheck="false">評估要件：</div>
+          <div class="eval-options">
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="aura6000_pHGNS" data-item="b2b_selfpay">擴增 TO B 自費</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="aura6000_pHGNS" data-item="lower_cost">同規格更低成本可能性</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="aura6000_pHGNS" data-item="sleep_services">多元睡眠服務</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="aura6000_pHGNS" data-item="expanded_services">擴增服務產品線</label>
+            <label class="eval-option"><input class="eval-check" type="checkbox" data-product="aura6000_pHGNS" data-item="observe">持續觀察</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+"false"><strong>2026 年 3 月獲 FDA PMA 核准（最新）</strong></li>
           </ul>
         </div>
         <div class="card-footer" spellcheck="false"><strong>定價：</strong><span>未公開（機構洽詢</span><span style="color: rgb(71, 85, 105);">，表示與Inspire差不多</span><span>）</span></div>
@@ -848,8 +950,7 @@
     <div class="cards-3">
 
       <div class="card">
-        <div class="card-top" style="background:var(--pap)"></div><div class="photo-area"><img class="card-img-sm" src="./Sleepnet產品圖.jpg" alt="Sleepnet Select" onerror="this.style.display='none'" style="display: none;"><div class="photo-placeholder" style="display: flex;"><span class="ph-icon">📷</span><span class="ph-lbl">點擊新增照片</span></div></div>
-        
+        <div class="card-top" style="background:var(--pap)"></div><div class="photo-area"><img class="card-img" src="images/sleepnet_select.jpg" alt="Sleepnet Select" style="display:block;"></div>
         <div class="card-body sm">
           <h3 spellcheck="false">Sleepnet Select</h3>
           <div class="company" spellcheck="false">Sleepnet Corporation</div>
