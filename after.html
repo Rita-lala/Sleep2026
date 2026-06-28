@@ -301,6 +301,7 @@
 
 
 <style id="doctor-fix">
+/* ── 桌機：4欄直式 ── */
 .doc-grid{display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:12px!important;padding:10px 20px!important}
 .doc-card{display:flex!important;flex-direction:column!important;align-items:center!important;padding:12px!important}
 .doc-card-top{display:none!important}
@@ -312,6 +313,22 @@
 .doc-title{font-size:11px!important;line-height:1.5!important;min-height:34px!important}
 .doc-key{font-size:10px!important;line-height:1.5!important;min-height:48px!important}
 .doc-stats{display:grid!important;grid-template-columns:1fr 1fr!important;gap:6px!important}
+
+/* ── 手機（≤680px）：橫式 — 照片左、資訊右，1欄4列 ── */
+@media(max-width:680px){
+  .doc-grid{grid-template-columns:1fr!important;gap:10px!important;padding:12px 14px 8px!important}
+  .doc-card{flex-direction:row!important;align-items:center!important;gap:14px!important;padding:14px!important;background:white!important;border-radius:12px!important;border:1px solid #E2E8F0!important;box-shadow:0 2px 8px rgba(0,0,0,.07)!important}
+  .doc-photo-wrap{width:76px!important;height:76px!important;flex-shrink:0!important;margin:0!important}
+  .doc-info{text-align:left!important;flex:1!important;min-width:0!important}
+  .doc-name{font-size:16px!important;font-weight:800!important;white-space:nowrap!important;margin-bottom:2px!important}
+  .doc-title{font-size:12px!important;line-height:1.5!important;min-height:unset!important;color:#475569!important;margin-bottom:4px!important}
+  .doc-key{font-size:11.5px!important;line-height:1.5!important;min-height:unset!important;margin-bottom:8px!important;white-space:normal!important}
+  .doc-stats{display:flex!important;gap:8px!important}
+  .doc-stat{flex:0 0 auto!important;padding:5px 10px!important;border-radius:6px!important;text-align:center!important}
+  .doc-stat .snum{font-size:20px!important;line-height:1.1!important}
+  .doc-stat .snum span{font-size:11px!important}
+  .doc-stat .slbl{font-size:10px!important;margin-top:1px!important}
+}
 </style>
 
 <style id="aasm-product-final-fix">
