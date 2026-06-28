@@ -1332,169 +1332,139 @@
 
 <script id="aasm-eval-unified">
 (function(){
-  /* ── 所有產品 × 評估項目組合 ── */
-  var PRODUCTS = [
-    'Inspire_UAS','Genio_HGNS','aura6000_pHGNS',
-    'eXciteOSA','Modius_Sleep',
-    'Daybreak_MAD','Hushd_Pro_Hushd_Avera',
-    'Sleepnet_Select','CleanSleep',
-    'Moonbird','Intake_Magnetic_Nasal_Strip',
-    'WatchPAT_400','DormoVision_X_Home',
-    'Wesper_Lab','Z_Machine_Synergy',
-    'SleepImage_System','Empatica_Health_Platform'
-  ];
-  var ITEMS = ['b2b_selfpay','lower_cost','sleep_services','expanded_services','observe'];
 
-  /* ── 建立 bit-index 對照表 ── */
-  var INDEX = {};
-  var bit = 0;
-  PRODUCTS.forEach(function(p){ ITEMS.forEach(function(i){ INDEX[p+'__'+i] = bit++; }); });
-  // bit = 85 total → 用 22 個 base64 字元 (ceil(85/6)) 就夠
+  /* ══ 寫死的勾選狀態（來源：aasm_eval_state.json 2026-06-28）══ */
+  var HARDCODED = {
+    "Inspire_UAS":              { b2b_selfpay:true,  lower_cost:false, sleep_services:false, expanded_services:false, observe:false },
+    "Genio_HGNS":               { b2b_selfpay:true,  lower_cost:false, sleep_services:false, expanded_services:false, observe:false },
+    "aura6000_pHGNS":           { b2b_selfpay:false, lower_cost:false, sleep_services:false, expanded_services:false, observe:true  },
+    "eXciteOSA":                { b2b_selfpay:false, lower_cost:false, sleep_services:true,  expanded_services:true,  observe:false },
+    "Modius_Sleep":             { b2b_selfpay:false, lower_cost:false, sleep_services:true,  expanded_services:false, observe:false },
+    "Daybreak_MAD":             { b2b_selfpay:false, lower_cost:false, sleep_services:true,  expanded_services:false, observe:true  },
+    "Hushd_Pro_Hushd_Avera":    { b2b_selfpay:false, lower_cost:false, sleep_services:true,  expanded_services:false, observe:true  },
+    "Sleepnet_Select":          { b2b_selfpay:false, lower_cost:false, sleep_services:false, expanded_services:true,  observe:false },
+    "CleanSleep":               { b2b_selfpay:false, lower_cost:false, sleep_services:true,  expanded_services:true,  observe:false },
+    "Moonbird":                 { b2b_selfpay:false, lower_cost:false, sleep_services:true,  expanded_services:false, observe:true  },
+    "Intake_Magnetic_Nasal_Strip":{ b2b_selfpay:false,lower_cost:false, sleep_services:true,  expanded_services:true,  observe:false },
+    "WatchPAT_400":             { b2b_selfpay:true,  lower_cost:false, sleep_services:false, expanded_services:true,  observe:false },
+    "DormoVision_X_Home":       { b2b_selfpay:true,  lower_cost:false, sleep_services:false, expanded_services:true,  observe:false },
+    "Wesper_Lab":               { b2b_selfpay:false, lower_cost:false, sleep_services:false, expanded_services:false, observe:true  },
+    "Z_Machine_Synergy":        { b2b_selfpay:false, lower_cost:true,  sleep_services:false, expanded_services:false, observe:false },
+    "SleepImage_System":        { b2b_selfpay:false, lower_cost:false, sleep_services:false, expanded_services:false, observe:true  },
+    "Empatica_Health_Platform": { b2b_selfpay:false, lower_cost:false, sleep_services:false, expanded_services:false, observe:true  }
+  };
 
-  /* ── 讀取當前所有勾選狀態 → Base64 字串 ── */
-  function encodeState(){
-    var arr = new Array(Math.ceil(bit/6)).fill(0);
+  /* ══ 套用狀態 ══ */
+  function applyState(products){
     document.querySelectorAll('.eval-check').forEach(function(cb){
-      if(!cb.checked) return;
-      var k = (cb.dataset.product||'')+'__'+(cb.dataset.item||'');
-      if(INDEX[k] === undefined) return;
-      var b = INDEX[k];
-      arr[Math.floor(b/6)] |= (1 << (b%6));
+      var p = cb.dataset.product || '';
+      var i = cb.dataset.item || '';
+      var val = !!(products[p] && products[p][i] === true);
+      cb.checked = val;
+      var opt = cb.closest('.eval-option');
+      if(opt) opt.classList.toggle('checked', val);
     });
-    var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
-    return arr.map(function(v){ return chars[v]; }).join('');
   }
 
-  /* ── 從 Base64 字串還原勾選狀態 ── */
-  function decodeState(str){
-    var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
-    var arr = str.split('').map(function(c){ return chars.indexOf(c); });
-    var checked = {};
-    Object.keys(INDEX).forEach(function(k){
-      var b = INDEX[k];
-      var v = arr[Math.floor(b/6)];
-      if(v !== undefined && v >= 0 && (v >> (b%6)) & 1) checked[k] = true;
-    });
-    return checked;
-  }
-
-  /* ── URL hash 讀寫 ── */
-  function getHashState(){
-    var h = location.hash.replace(/^#/, '');
-    if(!h) return null;
-    try { return decodeState(h); } catch(e){ return null; }
-  }
-  function updateHash(){
-    var s = encodeState();
-    // 全未勾選時清除 hash
-    var allZero = (s.replace(/A/g,'') === '');
-    history.replaceState(null, '', allZero ? location.pathname + location.search : '#' + s);
-  }
-
-  /* ── 套用狀態到 checkbox ── */
-  function applyState(checked){
+  /* ══ 收集目前狀態 ══ */
+  function collectState(){
+    var out = {};
     document.querySelectorAll('.eval-check').forEach(function(cb){
-      var k = (cb.dataset.product||'')+'__'+(cb.dataset.item||'');
-      cb.checked = !!(checked && checked[k]);
-      var p = cb.closest('.eval-option');
-      if(p) p.classList.toggle('checked', cb.checked);
+      var p = cb.dataset.product||'', i = cb.dataset.item||'';
+      if(!p||!i) return;
+      if(!out[p]) out[p]={};
+      out[p][i] = cb.checked;
     });
+    return out;
   }
 
-  /* ── localStorage 備份 ── */
-  var LS_KEY = 'aasm_eval_v2';
-  function saveLS(){ try{ localStorage.setItem(LS_KEY, encodeState()); }catch(e){} }
-  function loadLS(){ try{ return localStorage.getItem(LS_KEY); }catch(e){ return null; } }
+  /* ══ 下載目前勾選為 JSON ══ */
+  function downloadJSON(){
+    var payload = { _meta:{ saved: new Date().toISOString(), version:'1.0' }, products: collectState() };
+    var blob = new Blob([JSON.stringify(payload, null, 2)], {type:'application/json'});
+    var url  = URL.createObjectURL(blob);
+    var a    = document.createElement('a');
+    a.href = url; a.download = 'aasm_eval_state.json';
+    document.body.appendChild(a); a.click();
+    document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+  }
 
-  /* ── 主初始化 ── */
+  /* ══ 初始化 ══ */
   function init(){
-    // 優先順序：URL hash > localStorage > 全空
-    var hashState = getHashState();
-    if(hashState){
-      applyState(hashState);
-      saveLS();
-    } else {
-      var ls = loadLS();
-      if(ls){ applyState(decodeState(ls)); updateHash(); }
-    }
+    // 套用寫死狀態
+    applyState(HARDCODED);
 
-    // 監聽每個 checkbox 變化
+    // checkbox 變動時只更新 UI（不寫死了就不自動存）
     document.querySelectorAll('.eval-check').forEach(function(cb){
       cb.addEventListener('change', function(){
-        var p = cb.closest('.eval-option');
-        if(p) p.classList.toggle('checked', cb.checked);
-        updateHash();
-        saveLS();
+        var opt = cb.closest('.eval-option');
+        if(opt) opt.classList.toggle('checked', cb.checked);
       });
     });
 
-    // 注入「複製連結」按鈕
-    injectShareBtn();
+    injectUI();
   }
 
-  /* ── 複製連結按鈕 ── */
-  function injectShareBtn(){
+  /* ══ 注入操作按鈕 ══ */
+  function injectUI(){
     var style = document.createElement('style');
     style.textContent = [
-      '#aasm-share-bar{position:fixed;bottom:72px;right:16px;z-index:1000;display:flex;flex-direction:column;gap:8px;align-items:flex-end;}',
-      '#aasm-share-btn{background:#0D2137;color:#00B4D8;border:1.5px solid #00B4D8;border-radius:999px;',
-      'padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.25);',
-      'transition:all .18s;white-space:nowrap;}',
-      '#aasm-share-btn:hover{background:#00B4D8;color:#0D2137;}',
-      '#aasm-share-toast{background:#15803D;color:white;border-radius:8px;padding:6px 14px;',
-      'font-size:11px;font-weight:700;opacity:0;transition:opacity .3s;pointer-events:none;}',
-      '#aasm-clear-btn{background:transparent;color:#94A3B8;border:1px solid #475569;border-radius:999px;',
-      'padding:5px 12px;font-size:11px;cursor:pointer;transition:all .18s;}',
+      '#aasm-json-bar{position:fixed;bottom:72px;right:16px;z-index:1000;',
+        'display:flex;flex-direction:column;align-items:flex-end;gap:8px;}',
+      '#aasm-json-bar button{border-radius:999px;font-size:12px;font-weight:700;',
+        'cursor:pointer;padding:8px 16px;white-space:nowrap;transition:all .18s;',
+        'box-shadow:0 2px 10px rgba(0,0,0,.2);}',
+      '#aasm-dl-btn{background:#0D2137;color:#00B4D8;border:1.5px solid #00B4D8;}',
+      '#aasm-dl-btn:hover{background:#00B4D8;color:#0D2137;}',
+      '#aasm-clear-btn{background:transparent;color:#64748B;border:1px solid #475569;font-size:11px;}',
       '#aasm-clear-btn:hover{color:white;border-color:#94A3B8;}',
-      '@media(max-width:680px){#aasm-share-bar{bottom:80px;right:10px;}}'
+      '#aasm-reset-btn{background:transparent;color:#64748B;border:1px solid #475569;font-size:11px;}',
+      '#aasm-reset-btn:hover{color:#00B4D8;border-color:#00B4D8;}',
+      '#aasm-toast{background:#15803D;color:white;border-radius:8px;padding:6px 14px;',
+        'font-size:11px;font-weight:700;opacity:0;transition:opacity .3s;',
+        'pointer-events:none;text-align:right;max-width:220px;line-height:1.4;}',
+      '@media(max-width:680px){#aasm-json-bar{bottom:80px;right:10px;}}',
     ].join('');
     document.head.appendChild(style);
 
-    var bar = document.createElement('div');
-    bar.id = 'aasm-share-bar';
+    var bar   = document.createElement('div'); bar.id='aasm-json-bar';
+    var toast = document.createElement('div'); toast.id='aasm-toast';
+    window._aasmToast = toast;
 
-    var toast = document.createElement('div');
-    toast.id = 'aasm-share-toast';
-    toast.textContent = '✓ 連結已複製！';
+    // 下載按鈕
+    var dlBtn = document.createElement('button'); dlBtn.id='aasm-dl-btn';
+    dlBtn.textContent='💾 下載勾選 JSON';
+    dlBtn.title='下載目前勾選結果為 JSON，可更新後寫入 HTML';
+    dlBtn.addEventListener('click', function(){ downloadJSON(); showToast('✓ 已下載 aasm_eval_state.json'); });
 
-    var shareBtn = document.createElement('button');
-    shareBtn.id = 'aasm-share-btn';
-    shareBtn.textContent = '🔗 複製勾選連結';
-    shareBtn.addEventListener('click', function(){
-      updateHash();
-      var url = location.href.split('#')[0] + '#' + encodeState();
-      navigator.clipboard.writeText(url).then(function(){
-        toast.style.opacity = '1';
-        setTimeout(function(){ toast.style.opacity = '0'; }, 2000);
-      }).catch(function(){
-        // fallback
-        var ta = document.createElement('textarea');
-        ta.value = url; ta.style.position='fixed'; ta.style.opacity='0';
-        document.body.appendChild(ta); ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta);
-        toast.style.opacity = '1';
-        setTimeout(function(){ toast.style.opacity = '0'; }, 2000);
-      });
-    });
+    // 還原預設（寫死值）
+    var resetBtn = document.createElement('button'); resetBtn.id='aasm-reset-btn';
+    resetBtn.textContent='↩ 還原預設勾選';
+    resetBtn.addEventListener('click', function(){ applyState(HARDCODED); showToast('已還原至預設勾選狀態', '#1B3A6B'); });
 
-    var clearBtn = document.createElement('button');
-    clearBtn.id = 'aasm-clear-btn';
-    clearBtn.textContent = '清除全部';
-    clearBtn.addEventListener('click', function(){
-      applyState({});
-      updateHash();
-      saveLS();
-    });
+    // 清除全部
+    var clearBtn = document.createElement('button'); clearBtn.id='aasm-clear-btn';
+    clearBtn.textContent='清除全部';
+    clearBtn.addEventListener('click', function(){ applyState({}); showToast('已清除所有勾選','#475569'); });
 
     bar.appendChild(toast);
-    bar.appendChild(shareBtn);
+    bar.appendChild(dlBtn);
+    bar.appendChild(resetBtn);
     bar.appendChild(clearBtn);
     document.body.appendChild(bar);
   }
 
+  function showToast(msg, bg){
+    var t=window._aasmToast; if(!t) return;
+    t.textContent=msg; t.style.background=bg||'#15803D'; t.style.opacity='1';
+    clearTimeout(window._aasmToastTimer);
+    window._aasmToastTimer=setTimeout(function(){ t.style.opacity='0'; },2600);
+  }
+
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
   else init();
+
 })();
 </script>
 </body></html>
