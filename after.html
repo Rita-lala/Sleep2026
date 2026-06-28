@@ -1294,36 +1294,29 @@
     <div class="action-row">
       <div class="action-bar" style="background:var(--green)"></div>
       <div>
-        <div class="action-label" spellcheck="false">★★★ 高優先 — 積極洽談</div>
-        <div class="action-val" spellcheck="false">Z Machine Synergy、Dormotech DormoVision X、WatchPAT 400、eXciteOSA</div>
+        <div class="action-label" spellcheck="false">高優先 — 積極洽談</div>
+        <div class="action-val" spellcheck="false">Inspire、Nyxoah Genio、Wesper Lab、Z Machine Synergy、eXciteOSA、<span style="color: rgb(71, 85, 105); font-size: 9.5px; font-style: italic;">Intake&nbsp;</span></div>
       </div>
     </div>
     <div class="action-row">
       <div class="action-bar" style="background:var(--blue)"></div>
       <div>
-        <div class="action-label" spellcheck="false">★★ 中優先 — 深入評估</div>
-        <div class="action-val" spellcheck="false">Inspire Medical Systems、Nyxoah Genio、Daybreak MAD</div>
-      </div>
-    </div>
-    <div class="action-row">
-      <div class="action-bar" style="background:#EA580C"></div>
-      <div>
-        <div class="action-label" spellcheck="false">測試市場</div>
-        <div class="action-val" spellcheck="false">Intake Nasal Strip、GoodSleepco Hushd</div>
-      </div>
-    </div>
-    <div class="action-row">
-      <div class="action-bar" style="background:var(--gray3)"></div>
-      <div>
-        <div class="action-label" spellcheck="false">關注產品進度</div>
-        <div class="action-val" spellcheck="false">Sleepnet Select、CleanSleep</div>
+        <div class="action-label" spellcheck="false">中優先 — 深入評估</div>
+        <div class="action-val" spellcheck="false">WatchPAT 400、Daybreak、、Neurovalens Modius Sleep、Dormotech DormoVision X、SleepImage</div>
       </div>
     </div>
     <div class="action-row">
       <div class="action-bar" style="background:var(--amber)"></div>
       <div>
-        <div class="action-label" spellcheck="false">★ 低優先 — 持續觀察</div>
-        <div class="action-val" spellcheck="false">Wesper Lab、SleepImage、Neurovalens Modius Sleep、Empatica EmbracePlus、LivaNova aura6000、Moonbird</div>
+        <div class="action-label" spellcheck="false">低優先 — 持續觀察</div>
+        <div class="action-val" spellcheck="false">GoodSleepco Hushd、Empatica EmbracePlus</div>
+      </div>
+    </div>
+    <div class="action-row">
+      <div class="action-bar" style="background:var(--gray3)"></div>
+      <div>
+        <div class="action-label" spellcheck="false">植入式裝置 — 觀察期</div>
+        <div class="action-val" spellcheck="false">LivaNova aura6000（2025–26 年新核准，待觀察台灣市場時機）</div>
       </div>
     </div>
   </div>
@@ -1337,43 +1330,169 @@
 
 <div class="nav-hint" style="padding:16px" spellcheck="false">科林儀器股份有限公司 &nbsp;|&nbsp; 2026 AASM 展覽參展後產品彙報 &nbsp;|&nbsp; 2026-06-21 &nbsp;|&nbsp; 共 13 頁</div>
 
-<script id="aasm-eval-checkbox-state">
-(function(){function init(){document.querySelectorAll('.eval-check').forEach(function(cb){var key='aasm_eval_'+(cb.dataset.product||'')+'_'+(cb.dataset.item||'');if(localStorage.getItem(key)==='1')cb.checked=true;function sync(){if(cb.closest('.eval-option'))cb.closest('.eval-option').classList.toggle('checked',cb.checked);localStorage.setItem(key,cb.checked?'1':'0')}cb.addEventListener('change',sync);sync()})}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();})();
-</script>
-<script id="aasm-eval-complete-script">
+<script id="aasm-eval-unified">
 (function(){
-  function init(){
+  /* ── 所有產品 × 評估項目組合 ── */
+  var PRODUCTS = [
+    'Inspire_UAS','Genio_HGNS','aura6000_pHGNS',
+    'eXciteOSA','Modius_Sleep',
+    'Daybreak_MAD','Hushd_Pro_Hushd_Avera',
+    'Sleepnet_Select','CleanSleep',
+    'Moonbird','Intake_Magnetic_Nasal_Strip',
+    'WatchPAT_400','DormoVision_X_Home',
+    'Wesper_Lab','Z_Machine_Synergy',
+    'SleepImage_System','Empatica_Health_Platform'
+  ];
+  var ITEMS = ['b2b_selfpay','lower_cost','sleep_services','expanded_services','observe'];
+
+  /* ── 建立 bit-index 對照表 ── */
+  var INDEX = {};
+  var bit = 0;
+  PRODUCTS.forEach(function(p){ ITEMS.forEach(function(i){ INDEX[p+'__'+i] = bit++; }); });
+  // bit = 85 total → 用 22 個 base64 字元 (ceil(85/6)) 就夠
+
+  /* ── 讀取當前所有勾選狀態 → Base64 字串 ── */
+  function encodeState(){
+    var arr = new Array(Math.ceil(bit/6)).fill(0);
     document.querySelectorAll('.eval-check').forEach(function(cb){
-      var key='aasm_eval_'+(cb.dataset.product||'')+'_'+(cb.dataset.item||'');
-      if(localStorage.getItem(key)==='1') cb.checked=true;
-      function sync(){
-        var p=cb.closest('.eval-option');
-        if(p) p.classList.toggle('checked', cb.checked);
-        localStorage.setItem(key, cb.checked?'1':'0');
-      }
-      cb.addEventListener('change', sync);
-      sync();
+      if(!cb.checked) return;
+      var k = (cb.dataset.product||'')+'__'+(cb.dataset.item||'');
+      if(INDEX[k] === undefined) return;
+      var b = INDEX[k];
+      arr[Math.floor(b/6)] |= (1 << (b%6));
+    });
+    var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
+    return arr.map(function(v){ return chars[v]; }).join('');
+  }
+
+  /* ── 從 Base64 字串還原勾選狀態 ── */
+  function decodeState(str){
+    var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
+    var arr = str.split('').map(function(c){ return chars.indexOf(c); });
+    var checked = {};
+    Object.keys(INDEX).forEach(function(k){
+      var b = INDEX[k];
+      var v = arr[Math.floor(b/6)];
+      if(v !== undefined && v >= 0 && (v >> (b%6)) & 1) checked[k] = true;
+    });
+    return checked;
+  }
+
+  /* ── URL hash 讀寫 ── */
+  function getHashState(){
+    var h = location.hash.replace(/^#/, '');
+    if(!h) return null;
+    try { return decodeState(h); } catch(e){ return null; }
+  }
+  function updateHash(){
+    var s = encodeState();
+    // 全未勾選時清除 hash
+    var allZero = (s.replace(/A/g,'') === '');
+    history.replaceState(null, '', allZero ? location.pathname + location.search : '#' + s);
+  }
+
+  /* ── 套用狀態到 checkbox ── */
+  function applyState(checked){
+    document.querySelectorAll('.eval-check').forEach(function(cb){
+      var k = (cb.dataset.product||'')+'__'+(cb.dataset.item||'');
+      cb.checked = !!(checked && checked[k]);
+      var p = cb.closest('.eval-option');
+      if(p) p.classList.toggle('checked', cb.checked);
     });
   }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
-  else init();
-})();
-</script>
-<script id="aasm-eval-card-position-script">
-(function(){
+
+  /* ── localStorage 備份 ── */
+  var LS_KEY = 'aasm_eval_v2';
+  function saveLS(){ try{ localStorage.setItem(LS_KEY, encodeState()); }catch(e){} }
+  function loadLS(){ try{ return localStorage.getItem(LS_KEY); }catch(e){ return null; } }
+
+  /* ── 主初始化 ── */
   function init(){
+    // 優先順序：URL hash > localStorage > 全空
+    var hashState = getHashState();
+    if(hashState){
+      applyState(hashState);
+      saveLS();
+    } else {
+      var ls = loadLS();
+      if(ls){ applyState(decodeState(ls)); updateHash(); }
+    }
+
+    // 監聽每個 checkbox 變化
     document.querySelectorAll('.eval-check').forEach(function(cb){
-      var key='aasm_eval_'+(cb.dataset.product||'')+'_'+(cb.dataset.item||'');
-      if(localStorage.getItem(key)==='1') cb.checked=true;
-      function sync(){
-        var p=cb.closest('.eval-option');
+      cb.addEventListener('change', function(){
+        var p = cb.closest('.eval-option');
         if(p) p.classList.toggle('checked', cb.checked);
-        localStorage.setItem(key, cb.checked?'1':'0');
-      }
-      cb.addEventListener('change', sync);
-      sync();
+        updateHash();
+        saveLS();
+      });
     });
+
+    // 注入「複製連結」按鈕
+    injectShareBtn();
   }
+
+  /* ── 複製連結按鈕 ── */
+  function injectShareBtn(){
+    var style = document.createElement('style');
+    style.textContent = [
+      '#aasm-share-bar{position:fixed;bottom:72px;right:16px;z-index:1000;display:flex;flex-direction:column;gap:8px;align-items:flex-end;}',
+      '#aasm-share-btn{background:#0D2137;color:#00B4D8;border:1.5px solid #00B4D8;border-radius:999px;',
+      'padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.25);',
+      'transition:all .18s;white-space:nowrap;}',
+      '#aasm-share-btn:hover{background:#00B4D8;color:#0D2137;}',
+      '#aasm-share-toast{background:#15803D;color:white;border-radius:8px;padding:6px 14px;',
+      'font-size:11px;font-weight:700;opacity:0;transition:opacity .3s;pointer-events:none;}',
+      '#aasm-clear-btn{background:transparent;color:#94A3B8;border:1px solid #475569;border-radius:999px;',
+      'padding:5px 12px;font-size:11px;cursor:pointer;transition:all .18s;}',
+      '#aasm-clear-btn:hover{color:white;border-color:#94A3B8;}',
+      '@media(max-width:680px){#aasm-share-bar{bottom:80px;right:10px;}}'
+    ].join('');
+    document.head.appendChild(style);
+
+    var bar = document.createElement('div');
+    bar.id = 'aasm-share-bar';
+
+    var toast = document.createElement('div');
+    toast.id = 'aasm-share-toast';
+    toast.textContent = '✓ 連結已複製！';
+
+    var shareBtn = document.createElement('button');
+    shareBtn.id = 'aasm-share-btn';
+    shareBtn.textContent = '🔗 複製勾選連結';
+    shareBtn.addEventListener('click', function(){
+      updateHash();
+      var url = location.href.split('#')[0] + '#' + encodeState();
+      navigator.clipboard.writeText(url).then(function(){
+        toast.style.opacity = '1';
+        setTimeout(function(){ toast.style.opacity = '0'; }, 2000);
+      }).catch(function(){
+        // fallback
+        var ta = document.createElement('textarea');
+        ta.value = url; ta.style.position='fixed'; ta.style.opacity='0';
+        document.body.appendChild(ta); ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        toast.style.opacity = '1';
+        setTimeout(function(){ toast.style.opacity = '0'; }, 2000);
+      });
+    });
+
+    var clearBtn = document.createElement('button');
+    clearBtn.id = 'aasm-clear-btn';
+    clearBtn.textContent = '清除全部';
+    clearBtn.addEventListener('click', function(){
+      applyState({});
+      updateHash();
+      saveLS();
+    });
+
+    bar.appendChild(toast);
+    bar.appendChild(shareBtn);
+    bar.appendChild(clearBtn);
+    document.body.appendChild(bar);
+  }
+
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
   else init();
 })();
